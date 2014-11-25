@@ -1,0 +1,13 @@
+cd d://09-411 // way to path (always at start)
+
+git init // create repository
+
+git remote add origin https://github.com/kinley/09-411.git  // Managing remote repositories 
+
+git pull origin master  // download files/folders from github
+
+git add Homework  // add files/folders
+
+git commit -m 'commentary'  // always "commit" your added files with commentary
+
+git push origin master  // send files/folders to github; confirm login+password
