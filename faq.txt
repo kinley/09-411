@@ -1,9 +1,3 @@
-//Some main commands which help you to work with git//
-
-//You can also read usefull information by using such command as 'git help ...'//
-
-
-
 cd d://09-411 // way to path (always at start)
 
 git init // create repository
@@ -17,7 +11,3 @@ git add Homework  // add files/folders
 git commit -m 'commentary'  // always "commit" your added files with commentary
 
 git push origin master  // send files/folders to github; confirm login+password
-
-git mv // change name or directory
-
-git rm // remove file/folder
