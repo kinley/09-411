@@ -27,13 +27,13 @@ def find_word(temp_word, temp_set_of_words):
             break
     return flag
 
-
+# Знаю, что проверка выхода не идеальна (для выхода нужно 'n' ввести, остальное срабатывает как 'y'
 if __name__ == "__main__":
     main_dictionary = dictionary_helper("slovar.txt")
     set_of_words = []
-    good_words = []
     number_of_digit = 0
     while True:
+        good_words = []
         while True:
             number_of_digit = input("Введите число доступных букв: ")
             if number_of_digit.isdigit():
@@ -42,12 +42,13 @@ if __name__ == "__main__":
             else:
                 print("Введите число, а не букву или символ!")
         set_of_words = list(input("Введите множество букв: ").strip().lower().replace(" ", ""))
-        break
-    if number_of_digit not in main_dictionary:
-        print('В словаре нет нужных слов!')
-        exit(1)
-    for item in main_dictionary[number_of_digit]:
-        if not find_word(item, set_of_words[:]):
-            good_words.append(item)
-    print(good_words)
+        if number_of_digit not in main_dictionary:
+            print('В словаре нет нужных слов.')
+        else:
+            for item in main_dictionary[number_of_digit]:
+                if not find_word(item, set_of_words[:]):
+                    good_words.append(item)
+            print(good_words)
+        if input('Продолжить? (y/n)').strip().lower() == 'n':
+            break
     input('Тыкните любую кнопку.')
