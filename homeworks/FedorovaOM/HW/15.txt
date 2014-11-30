@@ -1,0 +1,21 @@
+begin
+ if S1 then
+  begin  
+   B1;
+   if S2 then B2
+    else
+     begin 
+      B3; B4;
+     end;
+   B5;
+  end
+ else
+  if S3 then
+   begin 
+    B6; B7;
+   end
+  else
+   if S4 then B8;
+  if S5 then S9
+  else S10;
+end.
