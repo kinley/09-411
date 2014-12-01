@@ -3,6 +3,8 @@
 //You can also read usefull information by using such command as 'git help ...'//
 
 
+DELAITE GIT PULL PERED TEM KAK DOBAVLYAT' FAILI!!!!!!!!!!!!! AAAAAAAAAAAAAAAA
+
 
 cd d://09-411 // way to path (always at start)
 
