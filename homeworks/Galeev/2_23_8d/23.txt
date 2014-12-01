@@ -1,0 +1,15 @@
+begin
+    S1
+  while E1 and E2 do
+    S1;
+  if not E1 then
+    S2
+  while E3 or (not E3 and not E4) do
+    S4
+    S2;
+  if E1 and not E2 then
+    S3;
+  while E3 or (not E3 and not E4) do
+    S4
+    S2;
+end.
