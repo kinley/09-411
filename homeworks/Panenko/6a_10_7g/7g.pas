@@ -1,10 +1,27 @@
-Program Diana;
+program Diana;
 
-Uses crt;
+uses
+  crt;
 
-var y:real;
+var
+  y: real;
+  i, j, sum: integer;
 
 begin
- y:=1*(1+2*2)*(1+2*2+3*3)*(1+2*2+3*3+4*4+5*5);
- writeln(y);
+  y := 1;
+  for i := 2 to 5 do 
+  begin
+    j := 1;
+    sum := 0;
+    while j < i do 
+    begin
+      sum := sum + j * 2;
+      inc(j);
+    end;
+    if i = 5 then 
+      sum := sum + 25;
+    y := y * sum;
+  end;
+  writeln(y);
+  readln();
 end.
