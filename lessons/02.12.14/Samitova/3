@@ -1,0 +1,9 @@
+program pr;
+Var y,a,b:real;
+Begin
+ Readln(a,b); 
+  y:=a-a*b*b+22.3*b*b*b;
+   if y<0 then y:=-y;
+  y:=y+a*a;
+ Write(y);
+End.
