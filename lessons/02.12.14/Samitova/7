@@ -1,0 +1,21 @@
+Program pr;
+Var A:array[1..5] of integer;
+z,min,max,n:integer;
+Begin 
+ for n:=1 to 5 do
+ Readln(A[n]);
+  max:=A[1];
+  min:=A[1];
+  for n:=1 to 4 do 
+   begin
+    if A[n]<A[1] then min:=A[n];
+   end;
+  Write(min);
+  for n:=1 to 5 do
+   begin
+    if A[n]>A[1] then max:=A[n];
+   end;
+ z:=max;
+ Writeln(z);
+End.
+ 
