@@ -1,0 +1,10 @@
+var a,b,y,min:real;
+Begin
+ Readln(a,b);
+  min:=a*a-b;
+   if  min>b*b-a then min:=b*b-a;
+  y:=a*a*a-min;
+   if y<0 then y:=-y;
+  y:=y+2.3*b;
+ Writeln(y);
+End.
