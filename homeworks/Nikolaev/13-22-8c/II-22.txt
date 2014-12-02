@@ -1,0 +1,12 @@
+begin
+	a:
+	if not 1 then goto d;
+	1;
+	b:
+	if 2 then goto a;
+	c:
+	2;
+	if not 3 then goto b;
+	d:
+	if 4 then goto c;
+end
