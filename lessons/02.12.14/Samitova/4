@@ -1,0 +1,11 @@
+program pr;
+Var a,b,c,d,y:real;
+ Begin
+  Read(a,b,c);
+   if (b+c)>0 then d:=b+c
+   else d:=-b-c;
+   y:=a/(1+d);
+   y:=y+d;
+   y:=y+b/(a+d);
+  Write(y);
+ End. 
