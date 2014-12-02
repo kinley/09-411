@@ -1,0 +1,5 @@
+cin<<m<<n;
+k=m*(1/n);
+if k%1==0 then k=kdiv1;
+ else k=k-1;
+cout<<k<<endl;
