@@ -15,17 +15,14 @@ def dictionary_helper(file_name):
 # Проверяет вхождение слова во множество букв (не использовал множества,
 # так как не учитываются повторения, например, нн)
 def find_word(temp_word, temp_set_of_words):
-    flag = True
     for character in temp_word:
-        flag = True
         for item_1 in temp_set_of_words:
             if character == item_1:
                 temp_set_of_words.remove(item_1)
-                flag = False
                 break
-        if flag:
-            break
-    return flag
+        else:
+            return False
+    return True
 
 # Знаю, что проверка выхода не идеальна (для выхода нужно 'n' ввести, остальное срабатывает как 'y'
 if __name__ == "__main__":
@@ -46,7 +43,7 @@ if __name__ == "__main__":
             print('В словаре нет нужных слов.')
         else:
             for item in main_dictionary[number_of_digit]:
-                if not find_word(item, set_of_words[:]):
+                if find_word(item, set_of_words[:]):
                     good_words.append(item)
             print(good_words)
         if input('Продолжить? (y/n)').strip().lower() == 'n':
