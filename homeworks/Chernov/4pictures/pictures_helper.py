@@ -11,7 +11,7 @@ def dictionary_helper(file_name):
     return temp_dictionary
 
 
-def find_word(temp_word, temp_set_of_words):
+def check_word_in_list(temp_word, temp_set_of_words):
     for character in temp_word:
         for item_1 in temp_set_of_words:
             if character == item_1:
@@ -50,7 +50,7 @@ if __name__ == "__main__":
         if number_of_digit not in main_dictionary:
             print('В словаре нет нужных слов.')
         else:
-            good_words = [item for item in main_dictionary[number_of_digit] if find_word(item, list_of_words[:])]
+            good_words = [item for item in main_dictionary[number_of_digit] if check_word_in_list(item, list_of_words[:])]
             print(good_words)
         if input('Продолжить? (y/n)').strip().lower() == 'n':
             break
