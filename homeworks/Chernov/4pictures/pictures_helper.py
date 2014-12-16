@@ -1,4 +1,3 @@
-# Открывает и сортирует словарь
 def dictionary_helper(file_name):
     temp_dictionary = {}
     with open(file_name, "r", encoding="utf-8-sig") as file:
@@ -12,8 +11,6 @@ def dictionary_helper(file_name):
     return temp_dictionary
 
 
-# Проверяет вхождение слова во множество букв (не использовал множества,
-# так как не учитываются повторения, например, нн)
 def find_word(temp_word, temp_set_of_words):
     for character in temp_word:
         for item_1 in temp_set_of_words:
@@ -24,27 +21,36 @@ def find_word(temp_word, temp_set_of_words):
             return False
     return True
 
-# Знаю, что проверка выхода не идеальна (для выхода нужно 'n' ввести, остальное срабатывает как 'y'
+
+# Проверка, является ли строчка числом.
+# Хотя, можно было проверить через метод строчки isdigit(), что меньше по количеству строчек кода, но одна
+# лишняя операция.
+def represents_int(string_to_convert):
+    try:
+        result_value = int(string_to_convert)
+        return result_value
+    except ValueError:
+        return None
+
+# Циклов do...while в Питоне нет.
 if __name__ == "__main__":
-    main_dictionary = dictionary_helper("slovar.txt")
-    set_of_words = []
+    main_dictionary = dictionary_helper("slovar.txt")  # Распределение слов по длине один раз.
+    list_of_words = []
     number_of_digit = 0
     while True:
         good_words = []
         while True:
-            number_of_digit = input("Введите число доступных букв: ")
-            if number_of_digit.isdigit():
-                number_of_digit = int(number_of_digit)
+            number_of_digit = represents_int(input('Введите число доступных букв: ').strip())
+            if number_of_digit:
+                print(number_of_digit)
                 break
             else:
                 print("Введите число, а не букву или символ!")
-        set_of_words = list(input("Введите множество букв: ").strip().lower().replace(" ", ""))
+        list_of_words = list(input("Введите множество букв: ").strip().lower().replace(" ", ""))
         if number_of_digit not in main_dictionary:
             print('В словаре нет нужных слов.')
         else:
-            for item in main_dictionary[number_of_digit]:
-                if find_word(item, set_of_words[:]):
-                    good_words.append(item)
+            good_words = [item for item in main_dictionary[number_of_digit] if find_word(item, list_of_words[:])]
             print(good_words)
         if input('Продолжить? (y/n)').strip().lower() == 'n':
             break
