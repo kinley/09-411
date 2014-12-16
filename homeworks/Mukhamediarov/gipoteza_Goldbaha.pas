@@ -6,7 +6,7 @@ begin
   if chet = 2 then
     write('1+1');
   if chet mod 2 <> 0 then
-    write('Error')
+    write('Error');
   else
     begin
       for i:=(chet-1) downto (chet div 2) do
@@ -22,7 +22,7 @@ begin
               a:=0;
               t:=chet-i;
               if t = 1 then
-                writeln(i, '+', t)
+                writeln(i, '+', t);
               else
                 begin
                   for g:=t downto 1 do
