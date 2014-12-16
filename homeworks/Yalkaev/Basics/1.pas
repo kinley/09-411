@@ -1,4 +1,5 @@
-Program HelloWord;
+program HelloWord;
+
 begin
-	 writeln ('Hello World!')
+  writeln('Hello World!')
 end.

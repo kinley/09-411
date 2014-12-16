@@ -1,4 +1,4 @@
-program four_pictures_one_word;
+program four_pictures_one_word; // With Ranis's help
 var
   expectedNum, i : Integer;
   word : string;

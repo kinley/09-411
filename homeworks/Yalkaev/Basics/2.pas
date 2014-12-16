@@ -1,6 +1,9 @@
-Program my_name;
-var a: string;
+program my_name;
+
+var
+  a: string;
+
 begin
-   a:= 'Nikolay';
-	 writeln ('Hello, ', a)
+  a := 'Nikolay';
+  writeln('Hello, ', a)
 end.
