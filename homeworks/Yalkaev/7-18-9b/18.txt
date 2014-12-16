@@ -1,16 +1,16 @@
-if E1 then
-    begin
-        while E2 do
-            S3;
-        repeat
-            S2;
-        until E3;
-    end
-else
-    begin
+  if E1 then
+  begin
+    while E2 do
+      S3;
     repeat
-        S3;
-        S4;
+      S2;
+    until E3;
+  end
+  else
+  begin
+    repeat
+      S3;
+      S4;
     until E4;
     S5;
-    end;
+  end;
