@@ -13,3 +13,29 @@ begin
     S4
     S2;
 end.
+
+
+BEGIN
+L1:S1;
+   if not B1 then
+   begin
+     S2;
+L2:  if B3 then
+     begin
+L3:    S4;
+       S2;
+       goto L2;
+     end
+     else
+       if not B4 then
+         goto L3;     
+   end
+   else
+     if B2 then
+       goto L1
+     else
+     begin
+       S3;  
+       goto L2;
+     end;
+END.
