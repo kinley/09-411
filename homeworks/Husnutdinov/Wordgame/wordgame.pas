@@ -6,7 +6,10 @@ f1,f2,f3:text;
 begin
 
 writeln('Vvedite bukvi');
-read(sim);
+for i := 1 to 5 do
+begin
+  read(mas[i]);
+end;
 
 writeln('Vvedite dlinu slova');
 read(n);
@@ -14,19 +17,19 @@ read(n);
 {Определяем число букв}
 s:=(length(sim) div 2)+1;
 
-mas[1]:=sim[1];
-f:=1;
+// mas[1]:=sim[1];
+// f:=1;
 
 {Заполнение массива буквами из исходной строки}
-for i:=2 to s do
-begin
-f:=f+2;
-mas[i]:=sim[f];
-end;
+// for i:=2 to s do
+// begin
+// f:=f+2;
+// mas[i]:=sim[f];
+// end;
 
-assign   (f1, 'file1.txt'); 
+assign   (f1, 'file1.txt');
 assign   (f2, 'file2.txt');
-assign   (f3, 'file3.txt'); 
+assign   (f3, 'file3.txt');
 rewrite(f2);
 rewrite(f3);
 
@@ -57,13 +60,13 @@ readln (f2, st);    {читаем строку из файла f2 }
 {Совершаем сортировку выбранных слов}
 for i:=1 to length(st) do
 for l:=1 to s do
-if st[i]=mas[l] then 
+if st[i]=mas[l] then
 begin
  k:=k+1;
  break;
 end;
 
-if k=length(st) then 
+if k=length(st) then
 begin
 writeln (f3, st);
 k:=0;

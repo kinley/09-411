@@ -1,12 +1,12 @@
 var
 x,y:real;
 begin
-writeln('Введите ваше X');
+writeln('Р’РІРµРґРёС‚Рµ РІР°С€Рµ X');
 readln(x);
 x:=abs(x);
 y:=1+cos(x);
 y:=y/(x+1);
 y:=ln(y)*exp(x);
-writeln('Получите ваше Y');
+writeln('РџРѕР»СѓС‡РёС‚Рµ РІР°С€Рµ Y');
 writeln(y);
 end.
