@@ -4,7 +4,7 @@ Uses crt;
 
 var
 x,y:real;
- 
+
 begin
 clrscr;
 readln(x,y);
