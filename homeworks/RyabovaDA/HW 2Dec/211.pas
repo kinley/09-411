@@ -1,9 +1,12 @@
 program Z211;
 begin
-if E1 then
-          if E2 then
-                    if E3 then S1
-                    else
-          else S2;
-S3
+if eq1 then
+       begin
+            if eq2 then
+                   begin
+                   if eq3 then s1
+                   end
+            else s2;
+       end;
+s3;
 end.
