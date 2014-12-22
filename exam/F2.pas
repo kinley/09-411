@@ -12,7 +12,7 @@ begin
   while not EOF(F) do
   begin
     Read(F, N);
-    S += N;
+    S += N; // Сложение с присваиванием
   end;
   Close(F);
   WriteLn(S);
