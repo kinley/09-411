@@ -1,4 +1,4 @@
-const n=2;
+
 program pr;
 
 function fact(x: real): real;
