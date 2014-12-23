@@ -37,6 +37,6 @@ begin
     n1 := n1 + 1;
   end;
   writeln('Vtoroe znachenie arctg= ', sum1);
-  writeln('Pi= ', 16 * sum - 4 * sum1);
-  writeln(pi);
+  writeln('Pi~ ', 16 * sum - 4 * sum1);
+  writeln('Pi=' ,pi);
 end.
