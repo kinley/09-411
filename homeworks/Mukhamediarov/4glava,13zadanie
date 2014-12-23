@@ -1,0 +1,41 @@
+const
+  E = 000.1;
+
+var
+  n: integer;
+  a, b, x, sum, d, s: real;
+  n1: integer;
+  a1, b1, x1, sum1, d1, s1: real;
+
+begin
+  n := 1;
+  sum := 1 / 5;
+  x := 1 / 5;
+  d := 1 / 5;{Это я уже посчитал вручную для n=0,т.к. d должно быть >E }
+  while d > E do
+  begin
+    a := 2 * n + 1;
+    b := power(x, a);
+    s := power(-1, n);
+    d := (b / a) * s;
+    sum := sum + d;
+    n := n + 1;
+  end;
+  writeln('Pervoe znachenie arctg= ', sum);
+  
+  n1 := 1;
+  sum1 := 1 / 239;
+  x1 := 1 / 239;
+  d1 := 1 / 239;{аналогично с первым}
+  while d1 > E do
+  begin
+    a1 := 2 * n + 1;
+    b1 := power(x, a1);
+    s1 := power(-1, n1);
+    d1 := (b1 / a1) * s1;
+    sum := sum + d;
+    n1 := n1 + 1;
+  end;
+  writeln('Vtoroe znachenie arctg= ', sum1);
+  writeln('Pi= ', 16 * sum - 4 * sum1);
+end.
