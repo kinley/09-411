@@ -1,31 +1,27 @@
 program pr;
 
-function fact(x: real): real;
-begin
-  if x = 0 then 
-    fact := 1
-  else 
-    fact := fact(x - 1) * x;
-end;
-
 var
-  k, n: integer;
-  S1, x, K_fact, d: real;
+  S1, f: real;
+  k, a, b, c, d, n, x: integer;
 
 begin
   Read(x);
-  d := 0;
-  n := 1;
-  S1 := -1;
-  for k := 1 to n do
+  n := 10;
+  a := -1;
+  b := x * x * x;
+  c := 1;
+  d := 3;
+  S1 := -x * x * x / 3;
+  for k := 2 to n do
   begin
-    S1 := exp(Ln(S1) * k);
-    x := exp(Ln(x) * (2 * k + 1));
-    S1 := S1 * x;
-    K_fact := fact(k);
-    S1 := S1 / k_fact;
-    S1 := S1 / (2 * k + 1);
-    d := d + S1;
-  end;  
-  Write(d); 
+    if k mod 2 = 0 then
+      a := 1
+    else a := -1;
+    b := b * x * x;
+    c := c * k;
+    d := d + 2;
+    f := a * b / (c * d);
+    S1 := S1 + f;
+  end;
+  Write(S1);
 end.
