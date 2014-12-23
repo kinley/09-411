@@ -1,0 +1,10 @@
+var
+  a,b:real;
+  c:boolean;
+
+begin
+  read(a,b);
+  if (abs(a) + abs(b))<=1 then c:= true
+                          else c:= false; 
+  write(c);
+end.
