@@ -10,18 +10,18 @@ Var k,n:integer;
 k_fact,x,S3,d:real;
 Begin
 n:=2; 
-d:=0;
+S3:=0;
  Read(x);
 For k:=1 to n do
  begin
 
-  S3:=exp(Ln(x)*2*k);
+  d:=exp(Ln(x)*2*k);
   k_fact:=fact(2*k-1);
   k_fact:=fact(k_fact);
-  S3:=S3*k_fact;
+  d:=d*k_fact;
   k_fact:=fact(2*k);
   k_fact:=fact(k_fact);
-  d:=d+S3;
+  S3:=d+S3;
  end;
- Write(d);
+ Write(S3);
 End.
