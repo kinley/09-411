@@ -11,7 +11,7 @@ begin
   b := x * x * x;
   c := 1;
   d := 3;
-  S1 := -x * x * x / 3;
+  S1 := (-x * x * x / 3)+x; {сумма при к равном 0 и 1}
   for k := 2 to n do
   begin
     if k mod 2 = 0 then
