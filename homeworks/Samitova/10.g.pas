@@ -15,16 +15,16 @@ var
 
 begin
   n := 1; {не могу использоать большие числа из-за факториала}
-  d := 0;
+  S4 := 0;
   Read(x); 
   for k := 1 to 2 * n do
   
   begin 
-    S4 := exp(Ln(x) * k);
+    d := exp(Ln(x) * k);
     k_fact := fact(k);
     k_fact := Fact(k_fact);
-    S4 := S4 / k_fact;
-    d := d + k_fact;
+    d := d / k_fact;
+    S4 := S4 + k_fact;
   end;
-  Write(d);
+  Write(S4);
 end.
