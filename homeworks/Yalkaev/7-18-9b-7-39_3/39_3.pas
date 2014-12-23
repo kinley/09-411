@@ -3,7 +3,7 @@
 program integral_39_3;
 
 const
-  n = 1;
+  n = 4;
   a = -1;
   b = 1;
   e = 0.0001;
