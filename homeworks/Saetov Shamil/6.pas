@@ -1,0 +1,11 @@
+var
+x,y:real;
+begin
+  readln(x);
+  y:=x+3.4;
+  y:=y*x+2.8;
+  y:=y*x-5.7;
+  y:=y*x+1;
+  y:=y*x-1.1;
+  writeln(y);
+end.
