@@ -25,11 +25,11 @@ begin
   a := 0;
   b := 1;
   y := x / 1;
+  x:=x*x;
   for k := 1 to 4 do
   begin
     a := a + b;
     b := b + 2;
-    x := x * x;
     y := y + a * x / b;
   end;
   Write(y);
