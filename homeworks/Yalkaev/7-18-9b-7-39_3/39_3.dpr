@@ -5,16 +5,16 @@ program integral39c;
 const
   eps = 0.0001;
 type
-  T = Real;
+  t = Real;
 var
-  a, b, delta, expenseI2n, expenseIn : Real;
+  a, b, delta, expenseI2n, expenseIn : real;
   n : Integer;
-  alfa, beta : T;
+  alfa, beta : t;
 
-function integral(alfa : T; beta : T; n : integer; a : Real; b : real) : real;
+function integral(alfa : t; beta : t; n : integer; a : real; b : real) : real;
 var
-  s, x, step : Real;
-  i : Integer;
+  s, x, step : real;
+  i : integer;
 begin
   s := 0;
 
@@ -30,17 +30,16 @@ end;
 
 
 begin
-  Assign(Input, 'input.txt');
-  Reset(Input);
-  Assign(Output, 'output.txt');
-  Rewrite(Output);
+  assign(Input, 'input.txt');
+  reset(Input);
+  assign(Output, 'output.txt');
+  rewrite(Output);
 
 
-  Readln(alfa, beta);
+  readln(alfa, beta);
 
   a := -1;
   b := 1;
-
   n := 2;
 
   repeat
@@ -52,6 +51,6 @@ begin
     
   until delta < eps;
 
-  Writeln(expenseI2n);
+  writeln(expenseI2n);
 
 end.
