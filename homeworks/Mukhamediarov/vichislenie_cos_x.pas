@@ -18,9 +18,10 @@ end.
 
 ISPRAVLENIE CODA
 
-begin
+
  var 
  x,y:real;
+ begin
   read(x);
   if (x<=0) or (x>=pi) then write('SYSTEM FATAL SUPER PUPER ERROR')
   else 
