@@ -1,17 +1,17 @@
 program chapter4(task15);
 
 var
-  k, n, i, count1, param, count2, m: integer;
+  k, n, l, count1, param, count2, m: integer;
 
 begin
   writeln('Enter the numbers in sequence');
-  read(i, k, n);
+  read(l, k, n);
   {Read the number and at the same time determine the status of the interval}
   for m := 1 to n do
   begin
     read(param);
-    if (param > i) and (param <= k) then count1 := count1 + 1;
-    if (param mod k = 1) or (param mod k = 2) or (param mod k = 3) then count2 := count2 + 1;
+    if (param > l) and (param <= k) then count1 := count1 + 1;
+    if (param mod k = 1) or (param mod k = 2) or (param mod k = 3) and (param mod l = 0) then count2 := count2 + 1;
     param := 0;
   end;
   writeln('First condition ', count1);
