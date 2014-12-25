@@ -6,8 +6,8 @@ var
 begin
 read(x);
 u := x*x;
-v := x*x*x;
-w := x*x*x*x*x;
+v := u*x;
+w := v*u;
 
 y := (w + 5.7 * v);
 y := y / (u - 7.5);
