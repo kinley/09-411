@@ -1,21 +1,14 @@
-begin
- if S1 then
-  begin  
-   B1;
-   if S2 then B2
-    else
-     begin 
-      B3; B4;
-     end;
-   B5;
-  end
+begin_of_scheme;
+ if B1 then 
+  begin S1;
+   if B2 then S2 else
+     begin S3; S4; end;
+  S5
  else
-  if S3 then
-   begin 
-    B6; B7;
-   end
+  if B3 then begin S6; S7; end
   else
-   if S4 then B8;
-  if S5 then S9
-  else S10;
-end.
+   if B4 then S8;
+     if B5 then B9
+  else B10;
+end;
+end_of_scheme.
