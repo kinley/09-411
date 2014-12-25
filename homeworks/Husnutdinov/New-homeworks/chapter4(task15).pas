@@ -6,6 +6,10 @@ var
 begin
   writeln('Enter the numbers in sequence');
   read(l, k, n);
+  
+  count1:=0;
+  count2:=0;
+  
   {Read the number and at the same time determine the status of the interval}
   for m := 1 to n do
   begin
