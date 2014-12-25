@@ -1,4 +1,4 @@
-var y,x,z:real;
+var y,x:real;
 	i:integer;
 
 function step(x:real; n:integer):real;
@@ -21,10 +21,9 @@ begin
 	readx(x);
 	y:=0;
 	for i:=1 to 5 do
-	begin
-		z:=step(x,i)/i;
-		z:=step(-1,i)*z;
-		y:=y-z
-	end;
+		if i mod 2=0 then
+			y:=y-step(x,i)/i
+		else
+			y:=y+step(x,i)/i;
 	writeln('y=',y:0:7);
 end.
