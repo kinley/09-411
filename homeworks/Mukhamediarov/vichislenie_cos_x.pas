@@ -21,7 +21,7 @@ ISPRAVLENIE CODA
 begin
  var 
  x,y:real;
-  readln(x);
+  read(x);
   if (x<=0) or (x>=pi) then write('SYSTEM FATAL SUPER PUPER ERROR')
   else 
      begin
