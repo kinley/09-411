@@ -6,11 +6,11 @@ Begin
     begin
      p3;
      p4;
-    end;
+    end
    else
     if S4 then
      p5;
-   end;
+   end
   else
    if S2 then
     begin
@@ -19,3 +19,4 @@ Begin
       p6;
     end;
 End.
+{переделала}
