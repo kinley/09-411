@@ -1,0 +1,20 @@
+	
+begin
+if E1 then
+begin
+L1:
+if E2 then
+begin
+if E3 then S1;
+end
+else
+begin
+S2;
+goto L2;
+end
+S3;
+goto L1;
+end;
+L2:
+S4;
+end.
