@@ -1,4 +1,4 @@
-def dictionary_helper(file_name):
+﻿def dictionary_helper(file_name):
     temp_dictionary = {}
     with open(file_name, "r", encoding="utf-8-sig") as file:
         for line in file:
@@ -42,7 +42,6 @@ if __name__ == "__main__":
         while True:
             number_of_digit = represents_int(input('Введите число доступных букв: ').strip())
             if number_of_digit:
-                print(number_of_digit)
                 break
             else:
                 print("Введите число, а не букву или символ!")
