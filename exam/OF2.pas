@@ -8,9 +8,9 @@ var
   s: String;
 
 BEGIN
-SetCurrentDir(GetCurrentDir + '/git/09-411/exam');
-writeln(GetCurrentDir);
-writeln(fileexists('of1.txt'));
+// SetCurrentDir(GetCurrentDir + '/git/09-411/exam');
+// writeln(GetCurrentDir);
+// writeln(fileexists('of1.txt'));
 
 Assign(f1, 'of1.txt');
 Reset(f1);
