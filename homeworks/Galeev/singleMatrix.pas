@@ -5,7 +5,7 @@ const
   
 type
   T = 0..1;
-  tArr = array[1..CN,1..CN] of integer;
+  tArr = array[1..CN,1..CN] of T;
   
 var
   n: integer;
