@@ -1,0 +1,5 @@
+x,y:=y,x
+x:=X y:=Y
+ x:=x*y  z:=x  x:=x+y
+ y:=x/y  x:=y  y:=x-y
+ x:=x/y  y:=z  x:=x-y
