@@ -1,0 +1,34 @@
+const
+  n = 10;
+
+type
+  tArray = Array[1..n] of integer;
+
+var
+  Arr: tArray;
+   m,i,c: integer;
+
+procedure sort(var A: tArray; var c: integer; m,i: integer);
+begin
+ for i:=1 to n do
+  for m := 1 to n-1  do 
+    begin
+      repeat  c := A[m];
+        A[m] := A[n-(n-m)+1];
+        A[n-(n-m)+1] := c;
+      until
+        A[m] < A[n-(n-m)+1]
+    end;
+end;
+
+begin
+  for i := 1 to 10 do
+    Readln(Arr[i]);
+  begin
+    
+    Sort(Arr, c, m,i);
+    
+  end;
+  for i := 1 to n do
+    Write(Arr[i], ' ');  
+end.
