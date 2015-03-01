@@ -25,27 +25,6 @@ begin
   Checking := i > n - 1
 end;
 
-{function Checking(n: integer; a: ArrType): boolean;
-var
-  i, l: integer;
-  check: boolean;
-begin
-  l := 0;
-  check := false;
-
-  for i := 1 to n - 1 do
-    if a[i] <= a[i + 1] then l := l + 1;
-
-  if l = n then begin
-    check := true;
-    Checking:= check;
-    end;
-
-  if check
-
-end;}
-
-
 var
   i, n: integer;
   mas: ArrType;
