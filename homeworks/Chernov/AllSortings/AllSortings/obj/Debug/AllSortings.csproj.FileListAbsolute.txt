@@ -1,0 +1,6 @@
+c:\users\bratishka\documents\visual studio 2013\Projects\AllSortings\AllSortings\bin\Debug\AllSortings.exe.config
+c:\users\bratishka\documents\visual studio 2013\Projects\AllSortings\AllSortings\bin\Debug\AllSortings.exe
+c:\users\bratishka\documents\visual studio 2013\Projects\AllSortings\AllSortings\bin\Debug\AllSortings.pdb
+c:\users\bratishka\documents\visual studio 2013\Projects\AllSortings\AllSortings\obj\Debug\AllSortings.csprojResolveAssemblyReference.cache
+c:\users\bratishka\documents\visual studio 2013\Projects\AllSortings\AllSortings\obj\Debug\AllSortings.exe
+c:\users\bratishka\documents\visual studio 2013\Projects\AllSortings\AllSortings\obj\Debug\AllSortings.pdb
