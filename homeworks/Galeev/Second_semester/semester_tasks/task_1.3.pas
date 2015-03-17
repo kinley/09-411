@@ -2,16 +2,16 @@ program p1;
 
 const
   CN = 100;
-  
+
 type
   T = real;
-  tArr = array[1..CN] of real;
+  tArr = array[1..CN] of T;
 
 var
   X, Y: tArr;
   r, Xo: T;
   i, n: integer;
-  
+
 procedure swap(var a, b: T);
 var
   temp: T;
@@ -55,15 +55,15 @@ end;
 
 function search_r(Y: tArr; n: integer): integer;
 var
-  i: integer;
+  i, n: integer;
 begin
   i := 1;
+  n := length(Y);
   while (Y[i] <= 0) and (i <= n) do
     inc(i);
-  if (i < n) or ((i = n) and (Y[i] > 0)) then
+  if Y[i] > 0 then
     result := i
   else
-  if (i = n) and (Y[i] <= 0) then
     result := n + 1;
 end;
 
