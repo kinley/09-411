@@ -2,7 +2,7 @@ program p1;
 
 const
   CN = 100;
-
+  
 type
   T = real;
   tArr = array[1..CN] of T;
@@ -11,7 +11,7 @@ var
   X, Y: tArr;
   r, Xo: T;
   i, n: integer;
-
+  
 procedure swap(var a, b: T);
 var
   temp: T;
@@ -42,26 +42,33 @@ end;
 
 procedure change_XtoY(var X, Y: tArr; n: integer);
 var
-  i: integer;
+  i, left, right: integer;
 begin
-  for i := 1 to (n div 2) do
+  left := 1;
+  right := n;
+  for i := 1 to n do
   begin
-    if (X[i] >= 0) and (X[i + n div 2] <= 0) then
-      swap(X[i], X[i + n div 2]);
-    Y[i] := X[i];
-    Y[i + n div 2] := X[i + n div 2];
+    if X[i] < 0 then
+    begin
+      Y[left] := X[i];
+      inc(left);
+    end
+    else
+    begin
+      Y[right] := X[i];
+      dec(right);
+    end;  
   end;
 end;
 
-function search_r(Y: tArr; n: integer): integer;
+function search_r(Y: tArr; n : integer): integer;
 var
-  i, n: integer;
+  i: integer;
 begin
   i := 1;
-  n := length(Y);
   while (Y[i] <= 0) and (i <= n) do
     inc(i);
-  if Y[i] > 0 then
+  if (Y[i] > 0) then
     result := i
   else
     result := n + 1;
