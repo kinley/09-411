@@ -1,5 +1,3 @@
-//Сильно не доделано
-
 {The initial values}
 const
   N = 100;
@@ -12,7 +10,7 @@ const
 type
   ta = array[1..100] of real;
 
-{Перевод из десятичной в двоичную}
+{Translation from decimal to binary}
 function DecToBin(aStr: String; Precision: Byte): String;
 const
   BaseIn = 10;
@@ -25,9 +23,6 @@ begin
   DecToBin := '';
   if aStr = '' then Exit;
   
-  (*Перевод десятичной записи в число.*)
-  
-  (*Определяем знак и десятичную запись числа без знака.*)
   if aStr[1] = '-' then begin
     StrSign := '-';
     vStr := Copy(aStr, 2, Length(aStr) - 1);
@@ -36,7 +31,6 @@ begin
     vStr := aStr;
   end;
   
-  (*Ищем дробную точку.*)
   PosDot := Length(vStr) + 1;
   for i := 1 to Length(vStr) do 
   begin
@@ -49,9 +43,6 @@ begin
   
   Num := 0;
   
-  (*Переводим в число запись целой части.*)
-  (*Движемся от младших разрядов - к старшим.*)
-  (*Вес младшего разряда в целой части.*)
   Weight := 1;
   for i := PosDot - 1 downto 1 do 
   begin
@@ -67,15 +58,11 @@ begin
       '8': Num := Num + 8 * Weight;
       '9': Num := Num + 9 * Weight;
     else
-      Writeln( 'Ошибка! Незарегистрированная цифра.');
+      Writeln( 'Error');
     end;
-    (*Вес следующего разряда.*)
     Weight := Weight * BaseIn;
   end;
   
-  (*Переводим в число запись дробной части.*)
-  (*Движемся от старших разрядов - к младшим.*)
-  (*Вес старшего разряда в дробной части.*)
   Weight := 1 / BaseIn;
   for i := PosDot + 1 to Length(vStr) do 
   begin
@@ -91,42 +78,35 @@ begin
       '8': Num := Num + 8 * Weight;
       '9': Num := Num + 9 * Weight;
     else
-      Writeln( 'Ошибка! Незарегистрированная цифра.');
+      Writeln( 'Error');
     end;
-    (*Вес следующего разряда.*)
+    
     Weight := Weight / BaseIn;
   end;
   
-  (*Переводим число в двоичную запись.*)
-  
   StrRes := '';
   
-  (*Перевод целой части.*)
   TmpNum := Int(Num);
   repeat
-    (*Определяем очередную двоичную цифру.*)
-    (*Аналог (TmpNum mod BaseOut) для случая вещественных операндов.*)
+    
     case Round( TmpNum - Int(TmpNum / BaseOut) * BaseOut ) of
       0:  StrRes := '0' + StrRes;
       1:  StrRes := '1' + StrRes;
     end;
-    (*Удаляем из числа текущий разряд.*)
+    
     TmpNum := Int(TmpNum / BaseOut);
   until TmpNum = 0;
   
-  (*Перевод дробной части с точностью до aPrecision знаков после запятой.*)
   i := 0;
   TmpNum := Frac(Num);
   while (TmpNum <> 0) and (Precision > i) do 
   begin
     if i = 0 then StrRes := StrRes + StrDot;
-    (*Определяем очередную двоичную цифру.*)
     TmpNum := TmpNum * BaseOut;
     case Round(Int(TmpNum)) of
       0:  StrRes := StrRes + '0';
       1:  StrRes := StrRes + '1';
     end;
-    (*Удаляем из числа текущий старший разряд.*)
     TmpNum := Frac(TmpNum);
     Inc(i);
   end;
@@ -134,42 +114,50 @@ begin
   DecToBin := StrSign + StrRes;
 end;
 
-{Перевод из двоичной в десятичную}
+{Translation from binary to decimal}
 function BinToDec(bin: string): real;
 var
-  a, i, st, m, p, w: integer;
-  sum, k, d: real;
+  i, b, a: integer;
+  d, k: double;
+  f, e: boolean;
+  c: char;
 begin
-  repeat
-    for i := 1 to length(bin) do
-      val(bin[i], d, w);
-  until (d < 2) and (w = 0);
-  a := pos('.', bin);
-  if a = 0 then st := length(bin) else st := a - 2;
+  b := 2;
+  f := false;
   k := 1;
-  for i := 1 to st do
-    k := 2 * k;
-  for i := 1 to length(bin) do
+  for i := 1 to Length(bin) do 
   begin
-    val(bin[i], m, p);
-    if p = 0 then
-      sum := sum + m * k;
-    k := k / 2;
+    if f then k := k / b;
+    c := UpCase(bin[i]);
+    a := -1;
+    case c of
+      '0'..'9': a := Ord(c) - 48;
+      'A'..'Z': a := Ord(c) - 55;
+      '.', ',': if f then e := true else f := true;
+    else f := true
+    end;
+    e := e or (a >= b);
+    if e then break;
+    if a >= 0 then d := d * b + a
   end;
-  BinToDec := sum;
+  BinToDec := d * k;
 end;
 
-{Преобразование T}
-function PreoDecToBin(DecToBin1: string): String;
+{Fucntion T}
+function PreoDecToBin(DecToBin1: string): string;
 var
-  i: integer;
+  i, l: integer;
 begin
   
-  for i := 1 to length(DecToBin1) do 
+  for i := 1 to length(DecToBin1) do
+    if DecToBin1[i] = '.' then begin l := i + 1; break; end;
+  
+  for i := l to length(DecToBin1) do 
   begin
-    insert(DecToBin1[i], DecToBin1, 1);
+    insert(DecToBin1[i], DecToBin1, l);
     delete(DecToBin1, i + 1, 1);
   end;
+  
   PreoDecToBin := DecToBin1;
 end;
 
@@ -177,16 +165,15 @@ end;
 function F_x(x, y, z, a: real): real;
 begin
   F_x := BinToDec(PreoDecToBin(DecToBin(FloatToStr(((abs(cos(x + a))) / (2 + sin(y + z)))), Precision)));
-  // F_x := BinToDec(F_x);
 end;
 
-{Процедура определения интервала}
+{Determination of the interval}
 procedure Interval(R, z: real; var E: ta);
 var
   k: real;
   i: integer;
 begin
-  for i := 1 to (10 - 1) do
+  for i := 1 to (10 - 1 ) do
   begin
     k := i;
     if ((k / R) <= z) and (z < (k + 1) / R) then E[i] := E[i] + 1;
@@ -215,7 +202,7 @@ begin
   for i := 1 to N do
     interval(10, xAr[i], e1);
   
-  {Вычисление математического ожидания и дисперсии}
+  {The calculation of the expectation and variance}
   
   for i := 1 to (10 ) do
   begin
@@ -228,7 +215,7 @@ begin
     write(e1[i], ' ');
   
   writeln;
-  writeln(Me, ' ', De);
+  writeln('Me = ', Me:3:2, ' ', 'De = ', De:3:2);
   
   writeln('For a = 0');
   
@@ -245,7 +232,7 @@ begin
   for i := 1 to N do
     interval(10, xAr[i], e1);
   
-  {Вычисление математического ожидания и дисперсии}
+  {The calculation of the expectation and variance}
   
   for i := 1 to (10 ) do
   begin
@@ -258,5 +245,5 @@ begin
     write(e1[i], ' ');
   
   writeln;
-  write(Me, ' ', De);
+  writeln('Me = ', Me:3:2, ' ', 'De = ', De:3:2);
 end.
