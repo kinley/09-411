@@ -45,7 +45,6 @@ begin
     if i = 10 then b := b / 2 else begin
       t := t / 2;
       b := b * t;
-      f := f * 10;
     end;
     c := c + b;
   end;
