@@ -10,6 +10,28 @@ begin
   g := x * x * x + x - 1;
 end;
 
+function dvoichnoe(a: real): real;
+//перевод числа в двоичную С.С.
+var
+  st, b, z: real;
+begin
+  st := 1;
+  if a < 0 then begin
+    a := -a;
+    z := -1;
+  end;
+  if a < 1 then 
+    while a > 0 do 
+    begin
+      a := a * 2;
+      b := int(a); 
+      a := a - b;
+      st := st / 10;
+      result := result + b * st;
+    end else result := 1;
+  if z = -1 then result := -result;    
+end;
+
 procedure vichislenieX(var x: real; t, fi: real);
 begin
   x := 1 + (t - 1) * fi;
@@ -24,17 +46,21 @@ begin
   for i := 1 to m do 
   begin
     h := (sin(fi[i - 1]) + sin(fi[i - 1]) * sin(fi[i - 1])) / 2;
+    h := dvoichnoe(h);
     st := 1 / 2;
     a := 0;
+    //преобразование числа по правилу Т; задача 1.4(г)
     if h = 1 then fi[i] := 1 else begin
       for j := 1 to 10 do 
       begin
         h := h * 10;
         b := int(h);
         h := h - b;
-        b := b * st;
+        if j = 10 then b := b / 2 else begin
+          st := st / 2;
+          b := b * st;
+        end;
         a := a + b;
-        st := st / 2;
       end;
       fi[i] := a;
     end;
