@@ -1,0 +1,63 @@
+const
+  n = 15;
+
+type
+  MyArr = array [0..n] of real;
+
+procedure ShowSeq(a: MyArr);
+var
+  i: integer;
+begin
+  for i := 1 to n do 
+    write(a[i]:3:2, ' ');
+  writeln;
+end;
+
+procedure SortSeq(a1: MyArr; var a2: MyArr; n: integer);
+var
+  i, min, j: integer;
+  m: real;
+begin
+  for i := 1 to n - 1 do 
+    begin
+     min := i;
+     for j := i + 1 to n do
+       if sqr(a1[min]) > sqr(a1[j]) then
+         min := j;
+     if min <> i then 
+       begin
+         m := a1[min];
+         a1[min] := a1[i];
+         a1[i] := m;
+       end;
+    end;
+  for i := 1 to n do
+    a2[i] := a1[i];
+end;
+
+function CreateSeq(var x: real): real;
+var
+  y: real;
+begin
+  y := 1.2 + abs(x);
+  y := y / (1.8 + abs(x - 1));
+  y := y * cos(x * x + x + 1);
+  CreateSeq := y;
+end;
+
+var
+  x, y: MyArr;
+  i: integer;
+
+begin
+  x[0] := -5.1;
+  for i := 1 to n do 
+    x[i] := CreateSeq(x[i - 1]);
+  sort(x, y, n);
+  ShowSeq(x);
+  ShowSeq(y);
+  i := n;
+  while (y[i] > 0) or (i = 0) do
+    i := i - 1;
+  writeln('r=', i);
+end.
