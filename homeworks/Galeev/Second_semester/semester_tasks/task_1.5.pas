@@ -8,7 +8,7 @@ type
   tArr = array[1..CN] of real;
   
 var
-  M: integer;// n = m
+  M, i: integer;
   t: real;
   x: tArr;
   
@@ -16,10 +16,9 @@ function funcT(u: real): real;
 var
   i: integer;
   temp: real;
-  nums: array[0..10] of 0..1;
+  nums: array[1..10] of 0..1;
 begin
   temp := 0;
-  nums[0] := trunc(u);
   for i := 2 to 10 do
   begin
     u := u * 2;
@@ -27,7 +26,7 @@ begin
     u := frac(u);
   end;
   nums[1] := (nums[3] + trunc(u * 2)) mod 2;
-  for i := 0 to 10 do
+  for i := 1 to 10 do
     temp := temp + nums[i] * power(2, (-1) * i);
   result := temp;
 end;
@@ -37,37 +36,22 @@ begin
   result := funcT(power(e, (-1) * z));
 end;
 
-procedure myRandom;
+procedure fill_x(var x: tArr; t: real; M: integer);
 var
-  i, M: integer;
-  t, x: real;
+  i: integer;
   fi: array[0..CN] of real;
 begin
-  write('t = ');
-  readln(t);
-  write('M = ');
-  readln(M);
   fi[0] := 1;
   for i := 1 to M do
   begin
     fi[i] := F(fi[i - 1]);
-    x := 1 + (t - 1) * fi[i];
-    write(x, ' ');
+    x[i] := 1 + (t - 1) * fi[i];
   end;
-  writeln;
-end;
-
-procedure fill_x(var x: tArr; M: integer);
-var
-  i: integer;
-begin
-  for i := 1 to M do
-    read(x[i]);
 end;
 
 function g(x: real): real;
 begin
-  result := 2 * x - 0.8;
+  result := 2 * x + 0.8;
 end;
 
 function MonteCarlo(x: tArr; t: real; M: integer): real;
@@ -87,8 +71,11 @@ BEGIN
   readln(t);
   write('M = ');
   readln(M);
-  myRandom;
-  fill_x(x, M);
-  MonteCarlo(x, t, M);
+  
+  fill_x(x, t, M);
+  for i := 1 to M do
+    write(x[i], ' ');
+  writeln;
+  write('Integral = ', MonteCarlo(x, t, M));
   
 END.
