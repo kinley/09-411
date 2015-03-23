@@ -6,9 +6,14 @@ const
 type
   tArr = array[0..CN] of boolean;
   
+  myType = record
+    num: integer;
+    arr: tArr;
+  end;
+  
 var
-  x, y, z, u, n, i: integer;
-  xArr, yArr, zArr: tArr;
+  u, n, i: integer;
+  x, y, z: myType;
 
 function myPower(a, b: integer): integer;
 var
@@ -20,7 +25,12 @@ begin
   result := temp;
 end;
 
-function toNum(Arr: tArr; n: integer): integer;
+function toChar(a: integer): char;
+begin
+  result := chr(a + ord('0'));
+end;
+
+function scale_2to10(Arr: tArr; n: integer): integer;
 var
   i: integer;
   temp: integer;
@@ -39,24 +49,17 @@ begin
   result := temp;
 end;
 
-function F(x, y, z, n: integer): integer;
-var
-  temp: integer;
-begin
-  temp := myPower(2, n);
-  result := ((x + y) mod temp - (x + z) mod temp) mod temp;
-  result := (result + (y - z) mod temp) mod temp;
-end;
-
-procedure printResult(u: integer);
+function scale_10to16(u: integer): string;
 var
   i: integer;
+  temp: string;
   Arr: array[1..CN] of 0..16;
 begin
+  temp := '';
   i := 1;
   if u < 0 then
   begin
-    write('-');
+    temp := '-';
     u := u * (-1);
   end;
   while u <> 0 do
@@ -69,17 +72,27 @@ begin
   while i <> 0 do
   begin
     case Arr[i] of
-      10: write('A');
-      11: write('B');
-      12: write('C');
-      13: write('D');
-      14: write('E');
-      15: write('F')
+      10: temp := temp + 'A';
+      11: temp := temp + 'B';
+      12: temp := temp + 'C';
+      13: temp := temp + 'D';
+      14: temp := temp + 'E';
+      15: temp := temp + 'F';
     else
-      write(Arr[i]);
+      temp := temp + toChar(Arr[i]);
     end;
     dec(i);
   end;
+  result := temp;
+end;
+
+function F(x, y, z, n: integer): integer;
+var
+  temp: integer;
+begin
+  temp := myPower(2, n);
+  result := ((x + y) mod temp - (x + z) mod temp) mod temp;
+  result := (result + (y - z) mod temp) mod temp;
 end;
 
 BEGIN
@@ -87,24 +100,24 @@ BEGIN
   readln(n);
   writeln('Write 3 arrays {true/false}, (n + 1) elements');
   for i := 0 to n do
-    read(xArr[i]);
+    read(x.arr[i]);
   readln;
   for i := 0 to n do
-    read(yArr[i]);
+    read(y.arr[i]);
   readln;
   for i := 0 to n do
-    read(zArr[i]);
+    read(z.arr[i]);
   readln;
   
-  x := toNum(xArr, n);
-  y := toNum(yArr, n);
-  z := toNum(zArr, n);
+  x.num := scale_2to10(x.arr, n);
+  y.num := scale_2to10(y.arr, n);
+  z.num := scale_2to10(z.arr, n);
   
-  u := F(x, y, z, n);
+  u := F(x.num, y.num, z.num, n);
   writeln('Result in 10th system:');
   writeln(u);
   
   writeln('Result in 16th system:');
-  printResult(u);
+  writeln(scale_10to16(u));
   
 END.
