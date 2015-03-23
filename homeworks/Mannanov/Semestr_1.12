@@ -1,0 +1,156 @@
+const
+
+  n = 10;
+
+type
+
+  bool = array[0..n] of boolean;
+
+procedure mass(var x: bool);
+
+var
+
+  i, a: integer;
+begin
+
+  for i := 1 to n do 
+  begin
+    a := random(0, 1);
+    if a = 0 then x[i] := false 
+    else x[i] := true;
+  end;
+  
+end;
+
+procedure BoolArrToInt(x: bool; var a: integer);
+
+var
+
+  i: integer;
+  st: integer;
+begin
+
+  a := 0;
+  st := 1;
+  for i := n downto 1 do 
+  begin
+    if x[i] = true then 
+      a := a + st;
+    st := st * 2;
+  end;
+  if x[0] = false then a := -a;
+  
+end;
+
+function oI(x: integer; i: integer): integer;
+
+var
+
+  j, st, m: integer;
+  a: array[1..50]of integer;
+  
+begin
+
+  j := 0;
+  while x > 0 do 
+  begin
+    j := j + 1;
+    a[j] := x mod 10;
+    x := (x - a[j]) div 10;
+  end;
+  x := 0;
+  st := 1;
+  m := j;
+  for j := i + 1 to m do 
+  begin
+    a[j] := a[j] * st;
+    x := x + a[j];
+    st := st * 10;
+  end;
+  for i := 1 to i do 
+  begin
+    a[i] := a[i] * st;
+    x := x + a[i];
+    st := st * 10;
+  end;
+  result := x;
+  
+end;
+
+function addition_2N(x, y, n2: integer): integer;
+
+begin
+
+  result := (x + y) mod n2;
+  
+end;
+
+function F(x, y, z: integer): integer;
+
+var
+
+  a, b, i, n2: integer;
+  
+begin
+
+  n2 := 1;
+  for i := 1 to n do
+    n2 := n2 * 2;
+  a:=oI(x, 2);
+  b:=oI(y, 5);
+  a:=addition_2N(a, b, n2);
+  b:=oI(z, 4);
+  a:=addition_2N(a, b, n2);
+  a:=oI(a, 2);
+  b:=oI(y, 3);
+  a:=addition_2N(a, b, n2);
+  f:=addition_2N(a, x, n2);
+  
+end;
+
+procedure IntToBoolArr(var u_b: bool; u: integer);
+
+var
+
+  i, st: integer;
+
+begin
+
+  if u < 0 then begin
+    u_b[0] := false;
+    u := -u;
+  end else u_b[0] := true;
+  write(u_b[0], ' ');
+  st := 1;
+  for i := 1 to n do st := st * 2;
+  for i := 1 to n do 
+  begin
+    if u - st >= 0 then begin
+      u := u - st;
+      u_b[i] := true
+    end else u_b[i] := false;
+    st := st div 2;
+    write(u_b[i], ' ');
+  end;
+  
+end;
+
+var
+
+  a, b, c, u_b: bool;
+  x, y, z: integer;
+  u, i: integer;
+
+begin
+
+  mass(a);
+  mass(b);
+  mass(c);
+  BoolArrToInt(a, x);
+  BoolArrToInt(b, y);
+  BoolArrToInt(c, z);
+  u := F(x, y, z);
+  writeln(u);
+  IntToBoolArr(u_b, u);
+  
+end.
