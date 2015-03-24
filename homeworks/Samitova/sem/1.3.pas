@@ -46,7 +46,7 @@ end;
 
 begin
   Write('Введите x');
-  Read(X[0]);
+  X[0] := -5.1;
   for i := 1 to n do
   
   begin
