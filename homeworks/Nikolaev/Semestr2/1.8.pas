@@ -36,7 +36,7 @@ end;
 begin randomize;
 	for i:=1 to n do
 		for j:=1 to n do
-			a[i,j]:=10*random-5;
+			a[i,j]:=10*random;
 			
 	writeln('Matrix A:');
 	printMatr(A, n);
