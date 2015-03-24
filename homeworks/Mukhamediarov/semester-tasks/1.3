@@ -1,0 +1,78 @@
+const
+  x0 = -5.1;
+  n = 15;
+type
+  t = array[1..n] of real;
+var
+  i, k:integer;
+  ArrayType: t;
+
+function F_x(x: real):real;
+begin
+  F_x:= (1.2 + abs(x))/(1.8 + abs(x - 1))*cos(x*x + x + 1);
+end;
+
+
+procedure init(var mas: t);
+var
+  i: integer;
+begin
+  for i := 1 to n do
+  begin
+    if i = 1 then
+      mas[i] := F_x(x0)
+    else
+      mas[i] := F_x(mas[i - 1]);
+  end;
+end;
+
+ 
+procedure sort(var mas: t);
+var
+  i, j: integer;
+  tmp: real;
+begin
+  for i := 1 to n - 1 do
+    for j := 1 to n - i do
+      if mas[j] * mas[j] > mas[j + 1] * mas[j + 1] then begin
+        tmp := mas[j];
+        mas[j] := mas[j + 1];
+        mas[j + 1] := tmp;
+      end;
+end;
+
+
+function finding(mas: t): integer;
+var
+  i: integer;
+  flag: boolean;
+begin
+  flag := false;
+  for i := 1 to n do
+    if (mas[i] < 0) and (flag = false)  then begin
+      finding := i;
+      flag := true;
+    end;
+  if (flag = false) then
+    finding := 0;
+end;
+
+BEGIN
+  
+  init(ArrayType);
+  writeln('X: = ');
+  for i := 1 to n do
+    write(ArrayType[i], ' ');
+  finding(ArrayType);
+  writeln();
+  writeln('Y: = ');
+  for i := 1 to n do
+    write(ArrayType[i], ' ');
+  writeln();
+  writeln('K by A: = ');
+  k := finding(ArrayType);
+  if k <> 0 then
+    writeln(ArrayType[k])
+  else 
+    writeln(k);
+END.
