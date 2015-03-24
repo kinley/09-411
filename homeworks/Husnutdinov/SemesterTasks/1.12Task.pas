@@ -1,5 +1,4 @@
-//Недоделано
-
+// Недоделано((
 {The initial values}
 const
   n = 10;
@@ -8,12 +7,15 @@ const
 type
   ta = array[1..n + 1] of boolean;
 
+type
+  tStr = string;
 
 var
-  i, k: integer;
+  i, k, r1, r2, r3,F,r4,r5,r6,r7,r8,r9,r10: integer;
   xn, yn, zn: ta;
-  x1,y1,z1,F: real;
-  aStr: string;
+  x1, y1, z1,t1: real;
+  aStr,l1: string;
+  x, y, z, x2, y2, z2, x3, y3, z3,e1,e2: tStr;
 
 {Translation from decimal to binary}
 function DecToBin(aStr: String; Precision: Byte): String;
@@ -148,20 +150,25 @@ begin
   BinToDec := d * k;
 end;
 
-procedure CalculatingX(var xn: ta; x:real);
+procedure CalculatingX(var xn: ta);
 var
   i: integer;
+  y: real;
 begin
+  x := '';
+  y := 0;
   for i := 2 to (n + 1) do
-    if xn[i] = True then x := x + 1 * power(2, n - i) else x := x;
+    if xn[i] = True then y := y + 1 * power(2, n - i);
   
-  if xn[1] = True then x := x else x := -x;
-  
-  x := round(x);
+  if xn[1] = True then x := FloatToStr(round(2 * y)) else 
+  begin
+    x := FloatToStr(round(2 * y));
+    Insert('-', x, 1);
+  end;
   
 end;
 
-procedure Otricanie(var aStr: string);
+procedure Otricanie(var aStr: tStr);
 var
   i: integer;
 begin
@@ -171,7 +178,7 @@ begin
 end;
 
 
-procedure Cicl(Cnt: integer; var aStr: string);
+procedure Cicl(Cnt: integer; var aStr: tStr);
 var
   c: char;
   i, j: integer;
@@ -197,14 +204,27 @@ begin
     zn[i] := k = 1;
   end;
   
-  CalculatingX(xn,x1);
-  CalculatingX(yn,y1);
-  CalculatingX(zn,z1);
+  CalculatingX(xn);
+  x1 := StrToFloat(DecToBin(x, 10));
+  r1 := round(x1); 
   
-  DecToBin(FloatToStr(x1),10);
-  DecToBin(FloatToStr(y1),10);
-  DecToBin(FloatToStr(z1),10);
+  CalculatingX(yn);
+  y1 := StrToFloat(DecToBin(x, 10));
+  r2 := round(y1);
   
-  F:=Cicl(2,(( x1 xor FloatToStr(Cicl(2,y1)))xor(FloatToStr(Otricanie(x1)) xor FloatToStr(Cicl(1,z1)))));
- 
+  CalculatingX(zn);
+  z1 := StrToFloat(DecToBin(x, 10));
+  r3 := round(z1);
+  
+  //x+y02
+  e1:=FloatToStr(y1);
+  Cicl(2,e1);
+  l1:=e1;
+  t1:=StrToFloat(l1);
+  r4:=round(t1);
+  r4:=r1 xor r4;
+  
+  //1x+z01
+  Otricanie
+  
 end.
