@@ -1,20 +1,17 @@
 const
   n = 150;
   r = 12;
+  nn = 10;
 
 type
   arr = array[-2..n] of real;
   arrint = array [0..r - 1] of integer;
+  tArray = array [1.. nn] of real;
 
-function find_x(x, y, z, a: real): real;
+procedure Binf(var f: real; var T: tArray);
 var
-  u, i: integer; T: array[1..10] of real;
-  f, res: real;
-
+  u, i: integer;
 begin
-  f := x + y + z + a;
-  f := f / 4;
-  
   while (f <> 0)  do {В двоичную}
     for u := 1 to 10 do
     begin;
@@ -22,7 +19,12 @@ begin
       T[u] := int(f);
       f := F - T[u];
     end;
-  
+end;
+
+procedure Decf(var f: real; var T: tArray );
+var
+  u, i: integer; res: real;
+begin
   for u := 5 downto 1 do {Так как числа в обратном порядке} 
     for i := 1 to 5 do
       res := res + T[u] * power(2, i);
@@ -32,7 +34,26 @@ begin
   res := res / power(10, 4);
   res := res / power(10, 4);
   res := res / power(10, 2); 
-  result := res;
+  f := res;
+end;
+
+procedure DoTu(var f: real );
+var
+  T: tArray;
+begin
+  Binf(f, T);
+  Decf(f, T);
+end;
+
+function find_x(x, y, z, a: real): real;
+var
+  f: real;
+
+begin
+  f := x + y + z + a;
+  f := f / 4;
+  DoTu(f);
+  result := f;
 end;
 
 procedure find_inter(r: integer; x: arr; var e: arrint);
