@@ -16,7 +16,7 @@ List<pair<int, int>> sum(List<pair<int, int>> num1, List<pair<int, int>> num2)
 	num2.current = num2.head;
 
 	int temp = num1.current->data.second + num2.current->data.second;
-	prepend(ans, make_pair(2, temp % 2));
+	ans.prepend(make_pair(2, temp % 2));
 	int i = 1;
 	for (; i < num1.size; i++)
 	{
@@ -26,7 +26,7 @@ List<pair<int, int>> sum(List<pair<int, int>> num1, List<pair<int, int>> num2)
 		temp /= 2;
 		temp += num1.current->data.second + num2.current->data.second;
 
-		prepend(ans, make_pair(2, temp % 2));
+		ans.prepend(make_pair(2, temp % 2));
 	}
 
 	for (; i < num2.size; i++)
@@ -35,13 +35,13 @@ List<pair<int, int>> sum(List<pair<int, int>> num1, List<pair<int, int>> num2)
 		temp /= 2;
 		temp += num2.current->data.second;
 
-		prepend(ans, make_pair(2, temp % 2));
+		ans.prepend(make_pair(2, temp % 2));
 	}
 
 	temp /= 2;
 	if (temp != 0)
 	{
-		prepend(ans, make_pair(2, temp % 2));
+		ans.prepend(make_pair(2, temp % 2));
 	}
 
 	return ans;
@@ -59,14 +59,14 @@ int main()
 	{
 		int temp;
 		cin >> temp;
-		prepend(num1, make_pair(2, temp));
+		num1.prepend(make_pair(2, temp));
 	}
 
 	for (int i = 0; i < n2; i++)
 	{
 		int temp;
 		cin >> temp;
-		prepend(num2, make_pair(2, temp));
+		num2.prepend(make_pair(2, temp));
 	}
 
 	ans = sum(num1, num2);
