@@ -1,0 +1,142 @@
+uses myawsomelist;
+const
+  q = 16;//razryadnost chisla 
+var
+  justfile1,justfile2 : text;
+  list1,list2,list3 : Tlist;
+procedure FileList(var F : text; var list : Tlist);
+var  
+  p : PP;
+  number : integer;
+  number_mod : integer;
+  asdf,exp,i : cardinal;
+  new_data : Tdata;
+begin  
+  reset(F);
+  exp := 0;
+  //new_data.exp := 0;
+  read(F,number);
+  //zapisivaem coefficienti v spisok (ne propuskaem 0)
+  while number > 0 do begin
+                        number_mod := number mod q;
+                        number := number div q;
+                        new_data.coeff := number_mod;                                                  
+                        p := init_element(new_data);
+                        append(list,p);
+                        inc(exp);
+                       end;
+  //zapisivaem stepeni v spisok
+  exp := exp - 1;
+  reset_list(list);
+  for i := 0 to exp do begin                         
+                         if list.pcurrent^.data.coeff = 0 then begin
+                                                                delete(list,list.pcurrent);
+                                                              end
+                                                         else begin                                                                
+                                                                list.pcurrent^.data.exp := i;                                                                
+                                                                next(list);
+                                                              end;
+                       end;                    
+
+close(F);
+end;
+
+procedure vUme(var ch1 : integer; var ch2 : integer);
+BEGIN
+  ch1 := ch1 + ch2;
+  if ch1 >= q then begin
+                    ch1 := ch1 - q;
+                    ch2 := 1;
+                  end
+             else ch2 := 0;
+                  
+END;
+
+procedure add(var l : tList; var d : tData; var c : integer);
+var
+  p: PP;
+BEGIN
+  vUme(d.coeff, c);
+  p := init_element(d);
+  append(l,p);
+END;
+
+procedure sum (list1,list2 : Tlist; var list3 : Tlist);
+var
+  i : cardinal;
+  um : integer;
+  data1,data2,data3: Tdata;
+BEGIN
+  reset_list(list1); reset_list(list2); um := 0;
+  while not eofList(list1) and not eofList(list2) do
+    begin
+      read_from_list(list1,data1);
+      read_from_list(list2,data2);
+      if data1.exp = data2.exp then begin
+                                      data3.coeff := data1.coeff + data2.coeff;
+                                      data3.exp := data1.exp;
+                                      add(list3,data3,um);
+                                    end
+                               else if data1.exp > data2.exp  then begin
+                                                                     data3 := data2;
+                                                                     add(list3,data3,um);
+                                                                     while (data1.exp > data2.exp) and not eofList(list2) do begin
+                                                                                                                             read_from_list(list2,data2);
+                                                                                                                             data3 := data2;
+                                                                                                                             add(list3,data3,um);
+                                                                                                                           end;
+                                                                     if eofList(list2) then begin
+                                                                                              data3 := data1;
+                                                                                              add(list3,data3,um);
+                                                                                            end;
+                                                                   end
+                                                              else begin
+                                                                     data3 := data1;
+                                                                     add(list3,data3,um);
+                                                                     while (data2.exp > data1.exp) and not eofList(list1) do begin
+                                                                                                                             read_from_list(list1,data1);
+                                                                                                                             data3 := data1;
+                                                                                                                             add(list3,data3,um);
+                                                                                                                           end;
+                                                                     if eofList(list1) then begin
+                                                                                              data3 := data2;
+                                                                                              add(list3,data3,um);
+                                                                                            end;
+                                                                   end;
+    end;
+    if eofList (list1) then
+                    begin
+                      while not eofList (list2) do
+                        begin
+                          read_from_list(list2,data2);
+                          data3 := data2;
+                          add(list3,data3,um);
+                        end;
+                    end;
+    if eofList (list2) then
+                    begin
+                      while not eofList (list1) do
+                        begin
+                          read_from_list(list1,data1);
+                          data3 := data1;
+                          add(list3,data3,um);
+                        end;
+                    end;
+   if um = 1 then begin
+                    inc(data3.exp);
+                    add(list3,data3,um);
+                  end;
+   reset_list(list3);
+   for i := 0 to data3.exp do
+                              if list3.pcurrent^.data.coeff = 0 then 
+                                                                    delete(list3,list3.pcurrent);
+END;
+begin
+assign(justfile1,'f1.txt');
+assign(justfile2,'f2.txt');
+init_list(list1);init_list(list2);init_list(list3);
+FileList(justfile1,list1);
+FileList(justfile2,list2);
+sum (list1,list2,list3);
+print(list3,q);
+end.
