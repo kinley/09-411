@@ -8,7 +8,7 @@ program insertionBeforeZ;
   procedure textToList(var l: tList);
     var
       f: text;
-      s: string[20];
+      s: tValue;
     
   Begin
     createList(l);
