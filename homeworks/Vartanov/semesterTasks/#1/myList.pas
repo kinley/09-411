@@ -1,5 +1,8 @@
 unit myList;
 interface
+  const
+    zeroValue = ' ';
+  
   type
     tValue = string[20];
     pPointer = ^tElement;
@@ -12,6 +15,7 @@ interface
             end;
   
   procedure createList(var list: tList);
+  procedure eraseList(var list: tList);
   procedure destroyList(var list: tList);
   
   function initElem(val: tValue): pPointer;
@@ -37,21 +41,28 @@ implementation
     
   Begin
     new(p);
-    p^.value := ' ';
+    p^.value := zeroValue;
     p^.next := nil;
     list.pFirst := p;
     list.pLast := p;
   End;
   
-  procedure destroyList;
+  procedure eraseList;
   Begin
     reset(list);
     while not eol(list) do
       begin
-        reset(list);
         deleteCurr(list);
         next(list);
       end;
+    list.pLast := list.pFirst;
+  End;
+  
+  procedure destroyList;
+  Begin
+    eraseList(list);
+    dispose(list.pFirst);
+    dispose(list.pLast);
   End;
   
   
