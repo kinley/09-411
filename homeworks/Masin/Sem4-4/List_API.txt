@@ -1,0 +1,71 @@
+Create empty list
+list list_name;
+
+Create node
+node *p = new node;
+create_node(a,b,c,p);
+
+Where is a,b,c integer  value of node
+
+To create list with node you must create node before create list
+For example:
+node *p = new node;
+create_node(1,2,3,p);
+list list_name(p);
+
+Push (to tail)
+void function
+node *t = new node;
+create_node(5,6,7,t);
+
+void push(list *list_example,node *node_example)
+{}
+...
+push(&list_name,t);
+
+Pop (from head)
+void function
+Function don't do anything if list size is 0
+If you use pop, programm delete first node and free memory. Don't use this node again!
+void pop(list *list_example)
+{}
+...
+pop(&list_name);
+
+Show list
+void function
+Print in console list
+void show_list(list *list_example)
+{}
+...
+show_list(&list_name)
+
+List size
+int type
+Return size of list
+int size(list *list_example)
+{}
+...
+size(&list_name);
+Also you can use list_name.size;
+
+Get element
+node type
+Return link to node
+First element has index 0, like C array
+If you try to get element with index>list size, return link to last element
+node* get_element(int element_number,list *list_example)
+{}
+...
+get_element(element_number, &list_name);
+
+Delete element
+void type
+If you try to delete element with index>list size, programm don't do anything
+You cannot delete last element (may be add this function later)
+void delete_element(int element_number,list *list_example)
+{}
+...
+delete_element(element_number, &list_name); 
+
+Note, that in functions links to list and if you want to call other functions in function write it without &; 
