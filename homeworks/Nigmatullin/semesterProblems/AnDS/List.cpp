@@ -71,6 +71,7 @@ template<typename T> bool List<T>::del(int position)
 		{
 			pElement *temp = head;
 			head = head->next;
+			size--;
 			delete(temp);
 			return true;
 		}
@@ -91,6 +92,7 @@ template<typename T> bool List<T>::del(int position)
 			delete(temp->next);
 			temp->next = NULL;
 			tail = temp;
+			size--;
 			return true;
 		}
 		else
@@ -108,6 +110,7 @@ template<typename T> bool List<T>::del(int position)
 		pElement *t = temp->next;
 
 		temp->next = temp->next->next;
+		size--;
 		delete(t);
 		return true;
 	}
@@ -135,6 +138,7 @@ template<typename T> bool List<T>::insertElement(int position, T el)
 	{
 		return false;
 	}
+	size++;
 	if (position == 0)
 	{
 		if (head == NULL)
