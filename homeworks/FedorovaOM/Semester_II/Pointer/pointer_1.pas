@@ -1,0 +1,12 @@
+var
+a,b,s:integer;
+p,q:^integer;
+begin
+read(a,b);
+new(p);
+new(q);
+p:=@a;
+q:=@b;
+s:=(p^)+(q^);
+write(s);
+end.
