@@ -6,7 +6,7 @@ Const
   BolvankaValue = 0;
 
 Type
-  TData = Integer;
+  TData = integer;
   PElement = ^TElement;
   TElement = Record
     data: TData;
@@ -26,8 +26,8 @@ procedure moveTo(var list: TList; position: Integer);
 procedure print(list: TList);
 
 function isEmpty(list: TList): Boolean;
-procedure append(list: TList; data: TData);
-procedure insertElement(list: TList; position: Integer; el: PElement);
+procedure append(var list: TList; data: TData);
+procedure insertElement(var list: TList; position: Integer; el: PElement);
 function get(var list: TList; position: Integer): TData;
 procedure delete(var list: TList; position: Integer);
 
@@ -51,24 +51,24 @@ begin
   list.size := 0;
 end;
 
-function isEmpty(list:TList): Boolean;
+function isEmpty(list: TList): Boolean;
 begin
   Result := list.size = 0;
 end;
 
-procedure append(list: TList; data: TData);
+procedure append(var list: TList; data: TData);
 begin
   list.tail^.next := initElement(data);
   list.tail := list.tail^.next;
   inc(list.size);
 end;
 
-procedure insertElement(list: TList; position: Integer; el: PElement);
+procedure insertElement(var list: TList; position: Integer; el: PElement);
 begin
   moveTo(list, position - 1);
-  // el := initElement(data) // if we use data instead of el
   el^.next := list.current^.next;
   list.current^.next := el;
+  inc(list.size);
 end;
 
 procedure print(list: TList);
@@ -115,6 +115,7 @@ begin
   el := list.current^.next;
   list.current^.next := list.current^.next^.next; // el^.next
   dispose(el);
+  dec(list.size);
 end;
 
 end.
