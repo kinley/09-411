@@ -8,5 +8,6 @@ begin
   append(list, 12);
   append(list, 14);
   print(list);
+  write(list.size);
   readln;
 end.

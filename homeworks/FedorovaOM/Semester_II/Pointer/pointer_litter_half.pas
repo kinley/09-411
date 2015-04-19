@@ -1,0 +1,12 @@
+var
+p:^integer;
+q:^real;
+pp:pointer;
+begin
+new(p);
+new(q);
+p^:=10;
+pp:=@p;
+q:=pp^;
+write(q^);
+end.

@@ -1,0 +1,129 @@
+unit myawsomelist;
+
+interface
+
+const
+  empty_coeff = 0;
+  empty_exp = 0;
+
+type
+  PP = ^Telement;
+  Tdata = record
+    coeff: integer;
+    exp: cardinal;
+  end;
+  Telement = record    
+    data: Tdata;
+    next: PP;
+  end;
+  Tlist = record
+    phead: PP;
+    ptail: PP;
+    pcurrent: PP;   
+  end;
+
+function init_element(data: Tdata): PP;
+procedure init_list(var list: Tlist);
+procedure delete(var list : Tlist; current_element : PP);
+function eofList(list: Tlist): boolean;
+procedure append(var list: Tlist; new_element: PP);
+procedure add_as_first(var list: Tlist; new_element: PP);
+procedure reset_list(var list: Tlist);
+procedure next(var list: Tlist);
+procedure read_from_list(var list: Tlist; var data: Tdata);
+procedure print(var list: Tlist; x : integer);
+
+implementation 
+
+function init_element(data: Tdata): PP;
+var
+  P: PP;
+begin
+  new(P);
+  P^.data.coeff := data.coeff;
+  P^.data.exp := data.exp;
+  P^.next := nil;
+  result := P;
+end;
+procedure init_list(var list: Tlist);
+var
+  P: PP;
+  data: Tdata;
+begin
+  data.coeff := empty_coeff;
+  data.exp := empty_exp;
+  P := init_element(data);
+  list.phead := P;
+  list.ptail := P;  
+end;
+function eofList(list: Tlist): Boolean;
+begin
+  result := list.pcurrent = nil;
+end;
+procedure append(var list: Tlist; new_element: PP);
+begin
+  list.ptail^.next := new_element;
+  list.ptail := new_element;  
+end;
+procedure reset_list(var list: Tlist);
+begin
+  list.pcurrent := list.phead^.next;
+end;
+procedure next(var list: Tlist);
+begin
+  list.pcurrent := list.pcurrent^.next;
+end;
+procedure read_from_list(var list: Tlist; var data: Tdata);
+begin
+  data := list.pcurrent^.data;  
+  next(list);
+end;
+procedure print(var list: Tlist; x : integer);//x - razryadnost'
+var
+  pcurrent: PP;  
+begin
+  {pcurrent := list.pcurrent;
+  reset_list(list);
+  while not eoflist(list) do 
+    begin
+    write(list.pcurrent^.data.coeff);
+    write('*',x,'^');
+    write(list.pcurrent^.data.exp);
+    write('+');
+    next(list);
+    end; 
+  list.pcurrent := pcurrent;}
+  reset_list(list);
+  while not eoflist(list) do 
+  begin    
+    write(list.pcurrent^.data.coeff);
+    if list.pcurrent^.data.exp > 1 then begin
+                                           write('*',x,'^', list.pcurrent^.data.exp);
+                                         end;
+    if list.pcurrent^.data.exp = 1 then begin
+                                           write('*',x);
+                                         end;
+    next(list);
+    if not eoflist(list) then
+                           begin
+                             write('+');                                                              
+                           end
+  end;  
+end;
+procedure add_as_first(var list: Tlist; new_element: PP);
+begin
+  new_element^.next := list.phead^.next;
+  list.phead^.next := new_element;
+  
+end;
+procedure delete(var list : Tlist; current_element : PP);
+begin
+  list.pcurrent := list.phead; 
+  while list.pcurrent^.next <> current_element do begin
+                                                    next(list);
+                                                  end;
+  list.pcurrent^.next := current_element^.next;  
+  dispose(current_element);
+  next(list);
+end;
+end.

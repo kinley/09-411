@@ -10,7 +10,7 @@ type
 
 procedure Binf(var f: real; var T: tArray);
 var
-  u, i: integer;
+  u: integer;
 begin
   while (f <> 0)  do {В двоичную}
     for u := 1 to 10 do

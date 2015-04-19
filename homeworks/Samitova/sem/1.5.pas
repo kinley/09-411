@@ -1,15 +1,3 @@
-program p1_5;
-
-const
-  m = 2;
-  Mb = 250;
-  ten = 10;
-
-type
-  tArr = array[1..m] of real;
-  tArray = array[0..Mb] of real;
-  Array10 = array[1..ten] of real;
-
 procedure find_t(var t: tArr);
 begin
   t[1] := 3;
@@ -24,9 +12,9 @@ begin
   result := h;
 end;
 
-function find_fi(f: real): real;
+procedure Binf(var f: real; var T:  Array10);
 var
-  i, u: integer; res: real; T: array10;
+  u: integer;
 begin
   while (f <> 0)  do {В двоичную}
     for u := 1 to 10 do
@@ -35,7 +23,13 @@ begin
       T[u] := int(f);
       f := F - T[u];
     end;
-  
+end;
+
+procedure Decf(var f: real);
+var
+  T:  Array10;
+  u, i: integer; res: real;
+begin
   for u := 5 downto 1 do {Так как числа в обратном порядке} 
     for i := 1 to 5 do
       res := res + T[u] * power(2, i);
@@ -45,7 +39,17 @@ begin
   res := res / power(10, 4);
   res := res / power(10, 4);
   res := res / power(10, 2); 
-  result := res;
+  f := res;
+end;
+
+
+function find_fi(f: real): real;
+var
+  T: Array10;
+begin
+  Binf(f, T);
+  Decf(f);
+  result := f;
 end;
 
 procedure set_i(var  x: tArray);
