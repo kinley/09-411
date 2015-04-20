@@ -66,7 +66,7 @@ Begin
         inc(i);
         inc(x);
         Readln(t,a);
-        while a <> 0 do
+        while not eof(t) do
           Begin
             New(l^.Next); {Формируем и вставляем элемент в конец списка}
             l := l^.Next;
