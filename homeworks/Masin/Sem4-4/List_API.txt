@@ -5,7 +5,7 @@ Create node
 node *p = new node;
 create_node(a,b,c,p);
 
-Where is a,b,c integer  value of node
+Where is a,b,c integer  values of node
 
 To create list with node you must create node before create list
 For example:
