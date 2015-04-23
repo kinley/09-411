@@ -28,7 +28,9 @@ procedure mt_1(var mt: s; abc: alphabet);
 procedure mt_2(var mt: s; abc: alphabet);
 procedure mt_3(var mt: s; abc: alphabet);
 procedure vvod_alph(var abc: alphabet);
-function f(ch: char; abc: alphabet): integer;
+function number_ch(ch: char; abc: alphabet): integer;
+procedure check(var l: list);
+procedure print_mt(mt: s);
 
 implementation
 
@@ -195,6 +197,17 @@ begin
   mt[9, 2].q_next := 1;  
 end;
 
+procedure check(var l: list);
+//если следующий элемент конечный, добавляем пустой символ
+var
+  y: u;
+begin
+  y := l.current;
+  if l.current^.next^.data = 'n' then in_end(l, lambda);
+  if l.current^.pred^.data = 'n' then in_begin(l, lambda);
+  l.current := y;
+end;
+
 procedure vvod_mt(var mt: s; abc: alphabet );
 var
   i, j: integer;
@@ -221,7 +234,7 @@ begin
   if (m = 'r') then next(l); 
 end;
 
-function f(ch: char; abc: alphabet): integer;
+function number_ch(ch: char; abc: alphabet): integer;
 //индекс символа в алфавите
 var
   j: integer;
@@ -233,18 +246,32 @@ end;
 procedure q(var l: list; var i, j: integer; mt: s; abc: alphabet);
 var
   k: integer;
-  y: u;
 begin
-  y := l.current;
-  if l.current^.next^.data = 'n' then in_end(l, lambda);
-  l.current := y;
+  check(l);
   l.current^.data := mt[i, j].a_new;
   moving(l, mt[i, j].move);
-  k := f(l.current^.data, abc);
+  k := number_ch(l.current^.data, abc);
   i := mt[i, j].q_next; 
   j := k;
   if (i > 0) then
     q(l, i, j, mt, abc) else writeln('final state');
+end;
+
+procedure print_mt(mt: s);
+var
+  i, j: integer;
+begin
+  writeln('таблица');
+  write('   ');
+  for i := 0 to m do write(mt[1, i].a_curr, '       ');
+  writeln();
+  for i := 1 to n do
+  begin
+    write(mt[i, j].q_curr, '  ');
+    for j := 0 to m do 
+      write(mt[i, j].a_new, ' ', mt[i, j].move, ' ', mt[i, j].q_next, '   ');
+    writeln();
+  end;
 end;
 
 begin
