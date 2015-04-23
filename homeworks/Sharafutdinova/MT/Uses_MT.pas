@@ -22,13 +22,14 @@ begin
   readln(st);
   st_in_list(l, st);
   print(l);
-  //mt_1(mt, abc);
-  //mt_2(mt, abc); 
-  mt_3(mt, abc);
+  //mt_1(mt, abc);//копирование последнего элемента
+  //mt_2(mt, abc);//замена 1 на 0, 0 на 1
+  mt_3(mt, abc);//копирование
   //vvod_mt(mt, abc);
-  j := f(l.head^.next^.data, abc);
+  j := number_ch(l.head^.next^.data, abc);
   l.current := l.head^.next;
   i := 1;
   q(l, i, j, mt, abc);
   print(l);
+  print_mt(mt);
 end.
