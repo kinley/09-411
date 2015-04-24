@@ -8,8 +8,8 @@ const
   CN = 10;
   
 type
-  tAlphabet = 0..1;
-  tMove = char;
+  tAlphabet = char;
+  tMove = (L, R, N);
   tIndex = 0..CN;
   
   tState = record
@@ -28,10 +28,18 @@ type
     list: tDoubleList;
   end;
 
+{procedure initTM(TM: tDoubleList);}
 function state(a: tAlphabet; m: tMove; q: tIndex): tState;
 procedure startTM(var TM: tTM);
 
 Implementation
+
+{procedure initTM(TM: tDoubleList);
+begin
+  initList(TM);
+  pushBack(TM, '_');
+  dec(TM.size);
+end;}
 
 function state(a: tAlphabet; m: tMove; q: tIndex): tState;
 var
@@ -45,11 +53,13 @@ end;
   
 procedure move(var list: tDoubleList; m: tMove);
 begin
-  if m = 'L' then
-    prev(list)
+  case m of
+    L: prev(list);
+    R: next(list);
+    N: 
   else
-  if m = 'R' then
-    next(list);
+    write('Incorrect movement.');
+  end;
 end;
 
 procedure startTM(var TM: tTM);
@@ -60,9 +70,9 @@ begin
   reset(TM.list);
   while TM.current.q <> 0 do
   begin
-    pushBack(TM.list, TM.tr[TM.current.q, TM.list.current^.data].a);
     temp := TM.list.current^.data;
-    move(TM.list, TM.tr[TM.current.q, TM.list.current^.data].m);
+    TM.list.current^.data := TM.tr[TM.current.q, TM.list.current^.data].a;
+    move(TM.list, TM.tr[TM.current.q, temp].m);
     TM.current.q := TM.tr[TM.current.q, temp].q;
   end;
 end;
