@@ -5,7 +5,7 @@ Interface
 Uses UDLL;
 
 const
-  CN = 10;
+  CN = 20;
   
 type
   tAlphabet = char;
@@ -68,13 +68,19 @@ var
 begin
   TM.current.q := 1;
   reset(TM.list);
-  while TM.current.q <> 0 do
+  while (TM.current.q <> 0) and ((TM.list.current^.data = '0') or (TM.list.current^.data = '1') or
+                                (TM.list.current^.data = '!') or (TM.list.current^.data = 'o') or
+                                (TM.list.current^.data = '_')) do
   begin
     temp := TM.list.current^.data;
     TM.list.current^.data := TM.tr[TM.current.q, TM.list.current^.data].a;
     move(TM.list, TM.tr[TM.current.q, temp].m);
     TM.current.q := TM.tr[TM.current.q, temp].q;
   end;
+  if ((TM.list.current^.data <> '0') and (TM.list.current^.data <> '1') and
+     (TM.list.current^.data <> '!') and (TM.list.current^.data <> 'o') and
+     (TM.list.current^.data <> '_')) then
+    write('Write correct symdol. 1/0/!/o/_');
 end;
 
 end.
