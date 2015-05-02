@@ -61,7 +61,7 @@ get_element(element_number, &list_name);
 
 Delete element
 void type
-If you try to delete element with index>list size, programm don't do anything
+If you try to delete element with index>list size, programm will not do anything
 You cannot delete last element (may be add this function later)
 void delete_element(int element_number,list *list_example)
 {}
