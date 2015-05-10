@@ -114,7 +114,7 @@ end;
 procedure print(list: tDoubleList);
 begin
   reset(list);
-  while list.current <> nil do 
+  while list.current <> list.tail do 
   begin
     write(list.current^.data);
     next(list);
