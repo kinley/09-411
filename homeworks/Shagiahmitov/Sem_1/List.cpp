@@ -52,17 +52,16 @@ Node *List::Search(std::string s)
         if(i->c==s[j])
             j++;
         else
-		{
+	{
            j=0;
-		   pos=i;
-		}
+           pos=i;
+	}
 
         if(j==s.length())
             return pos;
         
         i=i->next;
     }
-
     return NULL;
 }
 
@@ -71,21 +70,21 @@ bool List::Replace(std::string req, std::string rep)
 {	
     Node *h;  
     Node *startCont;
-	Node *endContains;
+    Node *endContains;
     h=Search(req);
     startCont=h;
     if(h!=NULL)
     {
         endContains=clearContains(h,req.length());
        
-		Node *headPasteStr;
-		Node *tailPasteStr;
+	Node *headPasteStr;
+	Node *tailPasteStr;
 
-		createPasteStr(rep,headPasteStr,tailPasteStr);
+	createPasteStr(rep,headPasteStr,tailPasteStr);
 
         // join list
         startCont->next=headPasteStr;
-		tailPasteStr->next=endContains;
+	tailPasteStr->next=endContains;
 
         return true;
     }
@@ -95,34 +94,34 @@ bool List::Replace(std::string req, std::string rep)
 
 Node *List::clearContains(Node *start, int count)
 {
-	Node *i;
-	start=start->next;
+    Node *i;
+    start=start->next;
     int j=0;
     while(j!=count)
     {
         i=start;
         start=start->next;
         delete i;
-		j++;
+	j++;
     }
 	return start;
 }
 
 void List::createPasteStr(std::string rep,Node *&h,Node *&t)
 {
-	int k=rep.length()-1;
+    int k=rep.length()-1;
     h=new Node;    
-	h->c=rep[k];
+    h->c=rep[k];
     h->next=NULL;
 
     t=h;
 
     while(k)
     {
-		k--;
-		Node *n = new Node;
-		n->c=rep[k];
-		n->next=h;
-		h=n;
+	k--;
+	Node *n = new Node;
+	n->c=rep[k];
+	n->next=h;
+	h=n;
     }
 }
