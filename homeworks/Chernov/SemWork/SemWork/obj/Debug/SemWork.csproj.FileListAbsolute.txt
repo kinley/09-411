@@ -1,6 +1,0 @@
-c:\users\bratishka\documents\visual studio 2013\Projects\SemWork\SemWork\bin\Debug\SemWork.exe.config
-c:\users\bratishka\documents\visual studio 2013\Projects\SemWork\SemWork\bin\Debug\SemWork.exe
-c:\users\bratishka\documents\visual studio 2013\Projects\SemWork\SemWork\bin\Debug\SemWork.pdb
-c:\users\bratishka\documents\visual studio 2013\Projects\SemWork\SemWork\obj\Debug\SemWork.csprojResolveAssemblyReference.cache
-c:\users\bratishka\documents\visual studio 2013\Projects\SemWork\SemWork\obj\Debug\SemWork.exe
-c:\users\bratishka\documents\visual studio 2013\Projects\SemWork\SemWork\obj\Debug\SemWork.pdb
