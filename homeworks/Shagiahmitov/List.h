@@ -9,6 +9,8 @@ struct Node{
 class List {
 private:
     Node *head;
+	Node *clearContains(Node *start, int count);
+	void createPasteStr(std::string rep,Node *&h,Node *&t);
 public:
     List();
     ~List();

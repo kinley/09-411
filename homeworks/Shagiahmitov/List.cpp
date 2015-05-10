@@ -41,80 +41,88 @@ void List::Print()
 }
 
 
-// рефакторить
 Node *List::Search(std::string s)
-{
-    Node *i;
-    Node *p=head; // pointer first entry
-    i=head->next;
-    while(i!=NULL){
-        int j=0;
-        while(i->c==s[j])
-        {
-            i=i->next;
-            j++;
-            if(j==s.length())
-                return p;
-			if(i==NULL)
-				break;
-        }
+{	
+    Node *i=head->next;
+    Node *pos=head;
+    int j=0;
 
-        p=i;
-        if(i==NULL)
-            break;
+    while(i!=NULL)
+    {
+        if(i->c==s[j])
+            j++;
         else
-            i=i->next;
+		{
+           j=0;
+		   pos=i;
+		}
+
+        if(j==s.length())
+            return pos;
+        
+        i=i->next;
     }
+
     return NULL;
 }
 
 
 bool List::Replace(std::string req, std::string rep)
-{
-    Node *h; // pointer on element before entry
-    Node *i;
-    Node *st; // pointer on element before entry
+{	
+    Node *h;  
+    Node *startCont;
+	Node *endContains;
     h=Search(req);
-    st=h;
+    startCont=h;
     if(h!=NULL)
     {
-        // clean elemets entry
-        h=h->next;
-        int j=0;
-        while(j!=req.length())
-        {
-            i=h;
-            h=h->next;
-            delete i;
-            j++;
-        }
+        endContains=clearContains(h,req.length());
+       
+		Node *headPasteStr;
+		Node *tailPasteStr;
 
-        // create paste list
-        int k=rep.length()-1;
-        Node *p=new Node;
-        Node *tl;
-        p->c=rep[k];
-        p->next=NULL;
-
-        tl=p;
-
-        while(k)
-        {
-            k--;
-            Node *n = new Node;
-            n->c=rep[k];
-            n->next=p;
-            p=n;
-        }
+		createPasteStr(rep,headPasteStr,tailPasteStr);
 
         // join list
-        st->next=p;
-        tl->next=h;
+        startCont->next=headPasteStr;
+		tailPasteStr->next=endContains;
 
         return true;
     }
-    else
+    else    
+        return false;    
+}
+
+Node *List::clearContains(Node *start, int count)
+{
+	Node *i;
+	start=start->next;
+    int j=0;
+    while(j!=count)
     {
-        return false;
+        i=start;
+        start=start->next;
+        delete i;
+		j++;
+    }
+	return start;
+}
+
+void List::createPasteStr(std::string rep,Node *&h,Node *&t)
+{
+	int k=rep.length()-1;
+    h=new Node;    
+	h->c=rep[k];
+    h->next=NULL;
+
+    t=h;
+
+    while(k)
+    {
+		k--;
+		Node *n = new Node;
+		n->c=rep[k];
+		n->next=h;
+		h=n;
     }
 }
