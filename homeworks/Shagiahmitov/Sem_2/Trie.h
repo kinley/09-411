@@ -1,29 +1,24 @@
 #pragma once
 
 #include <iostream>
-
+#include "List.h"
 
 class Trie {
 	struct TrieNode
 	{
 		char label;
-		TrieNode *next;
-		TrieNode *headList;
-
-		void addTrieNode(TrieNode *t);
+		List<TrieNode*> child;
 	};
 
 	TrieNode *root;
-
-	void addSubTree(TrieNode *cur,TrieNode *sub);
-	TrieNode *createSubTree(std::string word);
-
+	
+	TrieNode *createSubTree(std::string key);
+	void deleteSubTree(TrieNode *root);
 public:
 	Trie();
 	~Trie();
 
-	void pasteWord(std::string word);
-	void deleteWord(std::string word);
-	bool checkWord(std::string word);
-
+	void addKey(std::string key);
+	void deleteKey(std::string key);
+	bool checkKey(std::string key);
 };

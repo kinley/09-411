@@ -1,13 +1,11 @@
 #include "stdafx.h"
 #include "Trie.h"
-
+#include <string>
 
 Trie::Trie()
 {
 	root=new TrieNode;
-	root->label='!';
-	root->headList=new TrieNode;
-	root->next=NULL;
+	root->label='!';	
 }
 
 Trie::~Trie()
@@ -15,68 +13,134 @@ Trie::~Trie()
 
 }
 
-void Trie::pasteWord(std::string word)
+void Trie::addKey(std::string key)
 {
 	TrieNode *cur=root;
-	bool found=true;
-	int j=0;
-	while (j!=word.length())
+	bool found=false;
+	int j=0;	
+
+	while (j<key.length())
 	{
-		TrieNode *i=cur->headList;
-		
-		while(i!=NULL)
+		int i;
+		for(i=0;i<cur->child.Size();i++)
 		{
-			if(i->label==word[j])
-			{
-				cur=i;
-				j++;
-				break;
+			TrieNode *t=cur->child.Get(i);
+			if(t->label==key[j])
+			{				
+				cur=cur->child.Get(i);
+				found = true;
 			}
 			else
-				found=false;
-
-			i=i->next;
+			{
+				found = false;
+				break;
+			}
 		}
+
 		if(!found)
 		{
-			TrieNode *subRoot;
-			subRoot=createSubTree(word);
-			addSubTree(cur,subRoot);
+			TrieNode *subTree=createSubTree(key.substr(j,key.length()-j));
+			cur->child.Add(subTree);
+			break;
 		}
+		j++;
 	}
 }
 
-Trie::TrieNode *Trie::createSubTree(std::string word)
+Trie::TrieNode *Trie::createSubTree(std::string key)
 {
-	int i=0;
+	key+='$';
 	TrieNode *root=new TrieNode;
+	root->label=key[0];
 	TrieNode *subRoot;
-	subRoot=root;
-	root->label=word[i];
-	root->headList=new TrieNode;
-	root->next=NULL;
-	i++;
+	subRoot=root;	
 
-	while (i!=word.length())
+	for(int i=1;i<key.length();i++)
 	{
 		TrieNode *t=new TrieNode();
-		t->label=word[i];
-		t->headList=NULL;
-		root->addTrieNode(t);
-		root=t;
+		t->label=key[i];
+		
+		root->child.Add(t);
+		root=t;		
 	}
-	return root;
+
+	return subRoot;
 }
 
-void Trie::TrieNode::addTrieNode(TrieNode *t)
+bool Trie::checkKey(std::string key)
 {
-	TrieNode *i=headList;
-	while (i->next!=NULL)	
-		i=i->next;
-	i->next=t;
+	key+='$';
+	TrieNode *cur=root;	
+
+	bool found=false;
+	int j=0;
+	while (j<key.length())
+	{
+		int i;
+ 		for(i=0;i<cur->child.Size();i++)
+		{
+			if(cur->child.Get(i)->label==key[j])
+			{
+				cur=cur->child.Get(i);
+				found=true;
+				break;
+			}
+			else			
+				found=false;			
+		}
+		if(!found)
+			return false;
+
+		j++;
+	}		
+	return true;	
 }
 
-void Trie::addSubTree(TrieNode *cur,TrieNode *sub)
+void Trie::deleteKey(std::string key)
 {
-	cur->addTrieNode(sub);
+	key+='$';
+	TrieNode *cur=root;	
+	TrieNode *startNode=root;
+	int childNodeID;
+
+	bool found=false;
+	int j=0;
+	while (j<key.length())
+	{
+		int i;
+ 		for(i=0;i<cur->child.Size();i++)
+		{		
+			
+			if(cur->child.Get(i)->label==key[j])
+			{
+				if(cur->child.Size()>1)
+				{
+					startNode=cur;
+					childNodeID=i;
+				}
+				cur=cur->child.Get(i);				
+
+				found=true;
+				break;
+			}
+			else			
+				found=false;			
+		}	
+		j++;
+	}		
+	if(found)
+	{
+		startNode->child.Delete(childNodeID);
+		deleteSubTree(startNode);
+	}
+}
+
+void Trie::deleteSubTree(TrieNode *root)
+{
+	while(root->child.Size()>0)
+	{
+		TrieNode *t=root;
+		root=root->child.Get(0);
+		delete t;
+	}
 }
