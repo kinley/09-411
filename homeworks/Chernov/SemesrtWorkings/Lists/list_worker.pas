@@ -27,7 +27,7 @@ type
 
     public
       constructor create(input_file:String);
-      procedure Print();
+      procedure PrintThisShit();
   end;
 
 implementation
@@ -96,7 +96,7 @@ implementation
     end;
   end;
 
-  procedure TProgramming.Print();
+  procedure TProgramming.PrintThisShit();
     var to_print:PList;
   begin
     to_print:= head^.next;
