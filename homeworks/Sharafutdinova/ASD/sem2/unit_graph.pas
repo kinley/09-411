@@ -23,9 +23,9 @@ procedure input_gr1(var gr: arr);
 begin
   create(gr[1], 2);
   in_list(gr[1], 3);
+  in_list(gr[1], 4);
   create(gr[2], 1);
   in_list(gr[2], 3);
-  in_list(gr[2], 4);
   create(gr[3], 1);
   in_list(gr[3], 2);
   in_list(gr[3], 4);
