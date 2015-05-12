@@ -11,16 +11,16 @@ int main()
 	trie.addKey("thepk");		
 
 	if(trie.checkKey("thepk"))
-		std::cout << "Found key!\n";
+		std::cout << "Right word!\n";
 	else
-		std::cout << "Not Found Key\n";
+		std::cout << "Wrong word\n";
 
 	trie.deleteKey("thepk");
 
 	if(trie.checkKey("thepk"))
-		std::cout << "Found key!\n";
+		std::cout << "Right word!\n";
 	else
-		std::cout << "Not Found key\n";	
+		std::cout << "Wrong word\n";	
 	
 	getchar();
 	return 0;
