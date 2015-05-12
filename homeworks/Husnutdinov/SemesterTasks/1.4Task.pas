@@ -13,105 +13,106 @@ type
 {Translation from decimal to binary}
 function DecToBin(aStr: String; Precision: Byte): String;
 const
-  BaseIn = 10;
-  BaseOut = 2;
+  baseIn = 10;
+  baseOut = 2;
 var
   i, PosDot: Integer;
   StrRes, vStr, StrSign, StrDot: String;
   Num, TmpNum, Weight: real;
 begin
   DecToBin := '';
-  if aStr = '' then Exit;
   
-  if aStr[1] = '-' then begin
+  //Insert sign
+  if aStr[1] = '-' then 
+  begin
     StrSign := '-';
-    vStr := Copy(aStr, 2, Length(aStr) - 1);
+    vStr := copy(aStr, 2, length(aStr) - 1);
   end else begin
-    StrSign := '';
+    strSign := '';
     vStr := aStr;
   end;
   
-  PosDot := Length(vStr) + 1;
-  for i := 1 to Length(vStr) do 
+  //Determining the position of the point
+  posDot := length(vStr) + 1;
+  for i := 1 to length(vStr) do 
   begin
-    if vStr[i] in ['.', ','] then begin
-      PosDot := i;
-      StrDot := vStr[i];
-      Break;
+    if vStr[i] in ['.'] then 
+    begin
+      posDot := i;
+      strDot := vStr[i];
+      break;
     end;
   end;
   
-  Num := 0;
+  num := 0;
   
-  Weight := 1;
-  for i := PosDot - 1 downto 1 do 
+  //Transfer before the point
+  weight := 1;
+  for i := posDot - 1 downto 1 do 
   begin
     case vStr[i] of
-      '0': Num := Num + 0 * Weight; 
-      '1': Num := Num + 1 * Weight;
-      '2': Num := Num + 2 * Weight;
-      '3': Num := Num + 3 * Weight;
-      '4': Num := Num + 4 * Weight;
-      '5': Num := Num + 5 * Weight;
-      '6': Num := Num + 6 * Weight;
-      '7': Num := Num + 7 * Weight;
-      '8': Num := Num + 8 * Weight;
-      '9': Num := Num + 9 * Weight;
-    else
-      Writeln( 'Error');
+      '0': num := num + 0 * Weight; 
+      '1': num := num + 1 * Weight;
+      '2': num := num + 2 * Weight;
+      '3': num := num + 3 * Weight;
+      '4': num := num + 4 * Weight;
+      '5': num := num + 5 * Weight;
+      '6': num := num + 6 * Weight;
+      '7': num := num + 7 * Weight;
+      '8': num := num + 8 * Weight;
+      '9': num := num + 9 * Weight;
     end;
-    Weight := Weight * BaseIn;
+    weight := weight * baseIn;
   end;
   
-  Weight := 1 / BaseIn;
-  for i := PosDot + 1 to Length(vStr) do 
+  //Transfer after the point
+  weight := 1 / baseIn;
+  for i := (posDot + 1) to length(vStr) do 
   begin
     case vStr[i] of
-      '0': Num := Num + 0 * Weight; 
-      '1': Num := Num + 1 * Weight;
-      '2': Num := Num + 2 * Weight;
-      '3': Num := Num + 3 * Weight;
-      '4': Num := Num + 4 * Weight;
-      '5': Num := Num + 5 * Weight;
-      '6': Num := Num + 6 * Weight;
-      '7': Num := Num + 7 * Weight;
-      '8': Num := Num + 8 * Weight;
-      '9': Num := Num + 9 * Weight;
-    else
-      Writeln( 'Error');
+      '0': num := num + 0 * weight; 
+      '1': num := num + 1 * weight;
+      '2': num := num + 2 * weight;
+      '3': num := num + 3 * weight;
+      '4': num := num + 4 * weight;
+      '5': num := num + 5 * weight;
+      '6': num := num + 6 * weight;
+      '7': num := num + 7 * weight;
+      '8': num := num + 8 * weight;
+      '9': num := num + 9 * weight;
     end;
     
-    Weight := Weight / BaseIn;
+    weight := weight / baseIn;
   end;
   
-  StrRes := '';
+  strRes := '';
   
-  TmpNum := Int(Num);
+  tmpNum := int(num);
   repeat
     
-    case Round( TmpNum - Int(TmpNum / BaseOut) * BaseOut ) of
-      0:  StrRes := '0' + StrRes;
-      1:  StrRes := '1' + StrRes;
+    case Round( tmpNum - int(tmpNum / baseOut) * baseOut ) of
+      0:  strRes := '0' + strRes;
+      1:  strRes := '1' + strRes;
     end;
     
-    TmpNum := Int(TmpNum / BaseOut);
-  until TmpNum = 0;
+    tmpNum := int(tmpNum / baseOut);
+  until tmpNum = 0;
   
   i := 0;
-  TmpNum := Frac(Num);
-  while (TmpNum <> 0) and (Precision > i) do 
+  tmpNum := frac(num);
+  while (tmpNum <> 0) and (Precision > i) do 
   begin
-    if i = 0 then StrRes := StrRes + StrDot;
-    TmpNum := TmpNum * BaseOut;
-    case Round(Int(TmpNum)) of
-      0:  StrRes := StrRes + '0';
-      1:  StrRes := StrRes + '1';
+    if i = 0 then strRes := strRes + strDot;
+    tmpNum := tmpNum * baseOut;
+    case round(int(tmpNum)) of
+      0:  strRes := strRes + '0';
+      1:  strRes := strRes + '1';
     end;
-    TmpNum := Frac(TmpNum);
-    Inc(i);
+    tmpNum := frac(tmpNum);
+    inc(i);
   end;
   
-  DecToBin := StrSign + StrRes;
+  DecToBin := strSign + strRes;
 end;
 
 {Translation from binary to decimal}
@@ -125,22 +126,21 @@ begin
   b := 2;
   f := false;
   k := 1;
-  for i := 1 to Length(bin) do 
+  for i := 1 to length(bin) do 
   begin
     if f then k := k / b;
-    c := UpCase(bin[i]);
+    c := upcase(bin[i]);
     a := -1;
     case c of
       '0'..'9': a := Ord(c) - 48;
-      'A'..'Z': a := Ord(c) - 55;
-      '.', ',': if f then e := true else f := true;
+      '.': if f then e := true else f := true;
     else f := true
     end;
     e := e or (a >= b);
     if e then break;
     if a >= 0 then d := d * b + a
   end;
-  BinToDec := d * k;
+  binToDec := d * k;
 end;
 
 {Fucntion T}
