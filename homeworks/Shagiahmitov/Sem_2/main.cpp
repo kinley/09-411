@@ -1,7 +1,5 @@
 
 #include "Trie.h"
-#include "List.h"
-
 
 int main()
 {
