@@ -10,7 +10,7 @@ Trie::Trie()
 
 Trie::~Trie()
 {
-
+	// нет времени реализовать
 }
 
 void Trie::addKey(std::string key)
