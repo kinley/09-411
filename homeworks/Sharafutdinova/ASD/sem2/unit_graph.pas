@@ -29,7 +29,7 @@ begin
   create(gr[3], 1);
   in_list(gr[3], 2);
   in_list(gr[3], 4);
-  create(gr[4], 2);
+  create(gr[4], 1);
   in_list(gr[4], 3);
   create(gr[5], 0);//обозначение конца нулем
 end;
