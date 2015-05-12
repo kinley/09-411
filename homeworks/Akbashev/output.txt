@@ -1,0 +1,1 @@
+-5sin(1x)+6cos(1x)-74sin(2x)+112cos(2x)
