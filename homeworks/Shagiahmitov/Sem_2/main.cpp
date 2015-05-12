@@ -1,4 +1,3 @@
-#include "stdafx.h"
 
 #include "Trie.h"
 #include "List.h"
