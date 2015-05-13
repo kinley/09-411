@@ -53,7 +53,7 @@ begin
     guys.Current := guys.Current^.next[subject[i]];
     inc(i); 
   end;
-  if (i = LenOfName) then dispose(guys.Current)
+  if (i = LenOfName) then dispose(guys.Current);
 end;
 
 function MEMBER(subject: nametype; guys: DICTIONARY): boolean;
@@ -63,11 +63,11 @@ begin
   i := 1;
   Result := false;
   guys.Current := guys.Head;
-  while (guys.Current <> nil) and (i <> LenOfName+1) do 
+  while (guys.Current^.next[subject[i]] <> nil) and (i <> LenOfName) do 
   begin
     guys.Current := guys.Current^.next[subject[i]];
-    if(guys.Current<>nil) then inc(i); 
+    inc(i); 
   end;
-  if (i = LenOfName+1) then Result := true;
+  if (i = LenOfName) then Result := true;
 end;
 end.
