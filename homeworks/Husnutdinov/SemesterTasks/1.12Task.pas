@@ -50,14 +50,44 @@ var
   s: string;
 begin
   s := '';
-  while x > 0 do
+  if x > 0 then 
   begin
-    s := chr(ord('0') + x mod 2) + s;
-    x := x div 2;
+    while x > 0 do
+    begin
+      s := chr(ord('0') + x mod 2) + s;
+      x := x div 2;
+    end;
+    x := round(StrToFloat(s));
+  end else
+  begin
+    x := abs(x);
+    while x > 0 do
+    begin
+      s := chr(ord('0') + x mod 2) + s;
+      x := x div 2;
+    end;
+    x := -round(StrToFloat(s));
   end;
-  x := round(StrToFloat(s));
 end;
 
+
+procedure BoolMassiveFromBin(var a: longint);//Формирование булевского массива
+var
+  i: integer;
+  s: string;
+  x: tbool;
+begin
+  s := FloatToStr(a);
+  
+  for i := 1 to length(s) do
+  begin
+    if s[i] = ('1') then x[i] := true;
+    if s[i] = ('-') then x[i] := false;
+    if s[i] = ('0') then x[i] := false;
+    write(s[i], ' '); 
+  end;
+  
+end;
 
 procedure BoolMassive(var x: tbool);//Формирование булевского массива
 var
@@ -165,7 +195,7 @@ begin
   
   for i := 1 to n do
     n2 := n2 * 2;
-    
+  
   u := Slogenie(x, Cicl(2, y), n2);
   
   i := Slogenie(Otricanie(x), Cicl(1, z), n2);
@@ -186,6 +216,8 @@ begin
   
   u := Slogenie(u, i, n2);
   
-  write(u);
-
+  dec_bin(u);
+  
+  BoolMassiveFromBin(u);
+  
 end.
