@@ -1,0 +1,50 @@
+const
+  N = 5;
+
+type
+  matrica = array[1..n, 1..n] of real;
+
+var
+  A, B: matrica;
+  i, j: integer;
+
+procedure pluse_ln(m: integer; A: matrica; var B: matrica);
+var
+  i, j: integer;
+begin
+  for i := 1 to m do
+    for j := 1 to m do
+      if i mod 2 <> 0 then
+        b[i, j] := a[i, j] + ln(a[i, j])
+      else
+        b[i, j] := a[i, j];
+  
+  
+end;
+
+procedure print_matrica(X: matrica; m: integer);
+var
+  i, j: integer;
+begin
+  for i := 1 to m do
+  begin
+    for j := 1 to m do
+      write(X[i, j]:10:1);
+    writeln;
+  end;
+  writeln;
+end;
+
+begin
+  randomize;
+  for i := 1 to n do
+    for j := 1 to n do
+      a[i, j] := 10 * random;
+  
+  writeln('A:');
+  print_matrica(A, n);
+  
+  pluse_ln(n, A, B);
+  writeln('B:');
+  print_matrica(B, n);
+end.
