@@ -1,0 +1,14 @@
+unit hush;
+interface
+uses data;
+function h(x: nametype):interval;
+implementation
+function h(x: nametype):interval;
+var i, sum: integer;
+begin 
+sum:=0;
+for i:=1 to lengthofname do
+sum:=sum + ord(x[i]);
+h:=sum mod B;
+end;
+end.
