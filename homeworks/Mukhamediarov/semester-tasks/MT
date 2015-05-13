@@ -1,0 +1,48 @@
+{реализация машины Тьюринга без выполнения задачи}
+program mt;
+uses crt;
+var c: array [0..200] of string[5]; {количество команд, состояния должны обозначаться одной буквой или цифрой}
+                                    {0-станд. начальное, f-станд. заключительное}
+                                    {с[x][1] - состояние перед обработкой}
+                                    {c[x][2] - старый символ}
+                                    {c[x][3] - новое состояние}
+                                    {c[x][4] - новый символ}
+                                    {c[x][5] - направление обработки ('r' - Right, 'l' - Left)}
+    str: array [0..255] of char; {обрабатываемая строка}
+    index: integer; {индекс текущего символа в обрабатываемой строке} 
+    strLen: integer; {длина строки, считывается из файла}
+    commandCount: integer; {количество команд, считывается из файла}
+    f: text;
+    cur,curC,napr:char;
+    i: integer;
+begin
+index:=3;
+Assign(f,'C:\input.txt');
+Reset(f);
+Readln(f,strLen);
+for i:=0 to strLen-1 do
+Read(f,str[i]);
+Readln(f);
+Readln(f,commandCount);
+for i:=0 to commandCount-1 do
+  Readln(f,c[i]);
+Close(f);
+cur:=str[index];
+curC:='0'; {начинаем с состояния 0}
+while curc<>'f' do {и заканчиваем состоянием f}
+begin
+  for i:=0 to commandCount-1 do {поиск нужной команды по состоянию и текущему символу}
+  if (curC=c[i][1]) and (cur=c[i][2]) then
+    begin
+    curC:=c[i][3];
+    str[index]:=c[i][4];
+    napr:=c[i][5];
+    if napr='r' then inc(index);
+    if napr='l' then dec(index);
+    break;
+    end;
+cur:=str[index];
+end;
+writeln(str);
+readln;
+end.
