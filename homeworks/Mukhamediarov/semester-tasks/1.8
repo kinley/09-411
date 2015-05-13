@@ -18,10 +18,7 @@ begin
         b[i, j] := a[i, j] + ln(a[i, j])
       else
         b[i, j] := a[i, j];
-  
-  
 end;
-
 procedure print_matrica(X: matrica; m: integer);
 var
   i, j: integer;
@@ -34,8 +31,7 @@ begin
   end;
   writeln;
 end;
-
-begin
+BEGIN
   randomize;
   for i := 1 to n do
     for j := 1 to n do
@@ -47,4 +43,4 @@ begin
   pluse_ln(n, A, B);
   writeln('B:');
   print_matrica(B, n);
-end.
+END.
