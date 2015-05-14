@@ -1,0 +1,27 @@
+PROGRAM NAME;
+USES MT,DOUBLE_LINKED_LIST;
+VAR
+  alf : TName;//числовое представление алфавита, индекс - код символа
+  X : TMTController;//управляющее устройство
+  table : TTable;//таблица-программа МТ
+  lenta : LentaMT;//лента машины Т
+  EndOfProgram : Boolean;
+  l,t : text;
+BEGIN
+   assign(l,'lenta.txt');assign(t,'table.txt');
+  create_list(lenta);
+  GetTable(t,table);//получаем таблицу-программу из файла
+  GetLenta(l,lenta);//получаем ленту МТ из файла
+  alf := '()_!';
+  reset(lenta);
+  X.CurrState := 1;//начальное состояние 1
+  X.CurrLPos := lenta.phead^.next^.next;//начальная позиция 1
+  EndOfProgram := false;
+  while not EndOfProgram do
+  begin
+    work(X,table,alf);
+    EndOfProgram := X.CurrState = 0;
+  end;
+  print_list(lenta);  
+  close(t);close(l);
+END.
