@@ -1,0 +1,93 @@
+unit MT;
+
+interface
+
+uses
+  DOUBLE_LINKED_LIST;
+
+const
+  NumberOfStates = 3;//количество состояний
+  NumberOfSymbs = 4;//количество символов в алфавите
+
+type
+  LentaMT = Tlist;//лента машины Т, как линейный список
+  Tcommand = record
+    symb: char;//символ из алфавита, записываемый в ячейку ленты
+    state: integer;//состояние
+    mov: char;//команда перехода: П - вправо, Л - влево, Н - остаться на месте
+  end;
+  TName = string;//числовое представление алфавита, индекс - код символа
+  TTable = array [1.. NumberOfStates, 1.. NumberOfSymbs] of Tcommand;//таблица-программа МТ
+  TMTController = record
+    CurrState: integer;//состояние управляющего устройства
+    CurrLPos: ppointer;//положение управляющей головки на ленте
+  end;
+
+//work обеспечивает функционирование МТ, применяет символ с ленты и текущее состояние к таблице-программе
+//GetCode, возвращает числовой код символа с ленты
+procedure work(var MTC: TMTController; var table: Ttable; n: Tname);// упр устройство МТ, таблица-программа, массив символ-код
+function GetCode(var x: char; n: TName): integer;//символ, массив символ-код
+procedure GetTable(var F: text; var table: Ttable);
+procedure GetLenta(var F: text; var lenta: LentaMT);
+implementation
+
+procedure work(var MTC: TMTController; var table: Ttable; n: Tname);
+var
+  Code, State: integer;
+begin
+  Code := GetCode(MTC.CurrLPos^.data, n); //функция, возвращает числовой код символа на ленте
+  State := MTC.CurrState;	
+  MTC.CurrLPos^.data := table[State, Code].symb;//записываем символ на ленту согласно команде из таблицы
+  case table[State, Code].mov of //перемещаемся по ленте
+    'Л': MTC.CurrLPos := MTC.CurrLPos^.prev;
+    'П': MTC.CurrLPos := MTC.CurrLPos^.next;
+  end;	
+  MTC.CurrState := table[State, Code].state;//изменяем состояние согласно команде из таблицы
+end;
+
+function GetCode(var x: char; n: TName): integer;
+var
+  i: integer;
+begin
+  for i := 1 to NumberOfSymbs do
+  begin
+    if (n[i] = x) then 
+    begin
+      result := i;
+      break;
+    end;
+  end;
+end;
+
+procedure GetTable(var F: text; var table: Ttable);
+var
+  c: char;//костыль
+  i, j: integer;
+begin
+  reset(f);
+  for i := 1 to NumberOfSymbs do
+  begin
+    for j := 1 to NumberOfStates do
+    begin
+      read(f, table[j, i].symb);
+      read(f, c); table[j, i].state := ord(c) - ord('0');
+      read(f, table[j, i].mov);
+      if not eoln(f) then read(f, c);
+      //write(table[j,i].symb,table[j,i].state,table[j,i].mov,' ');
+    end;
+    if not eof(f) then readln(f);
+  end;
+end;
+
+procedure GetLenta(var F: text; var lenta: LentaMT);
+var
+  c: char;
+begin
+  reset(F); reset(lenta);
+  while not eof(F) do 
+  begin
+    read(F, c);
+    append(lenta, c);
+  end;
+end;
+END.
