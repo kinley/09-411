@@ -1,0 +1,106 @@
+program semestr2;
+
+type
+  pComponent = ^tComponent;
+  tComponent = record
+    Info1,Info2: real;
+    Next: pComponent;
+  end;
+
+procedure push(var x: pComponent; c,c1: real);
+var
+  u: pComponent;
+begin
+  new(u);
+  u^.Info1 := c;
+  u^.Info2 := c1;
+  u^.Next := x;
+  x := u;
+end;
+
+procedure pop(var x: pComponent; var c,c1: real);
+var
+  u: pComponent;
+  function FreeO(x1: pComponent): boolean;
+  begin
+    FreeO := (x1 = nil);
+  end;
+
+begin
+  if FreeO(x)
+    then
+    writeln('Стек пуст')
+    else
+  begin
+    c := x^.Info1;
+    c1 := x^.Info2;
+    u := x; 
+    x := x^.Next;
+    dispose(u); 
+  end;
+end;
+
+procedure Print(var u: pComponent);
+var b:boolean;
+begin
+  while u <> nil do
+  begin
+  if (u^.Info2 > 0)then b:=true else b:=false;
+    if(u ^.Next <> nil) then 
+    begin
+    if (u^.Info1 = 1) then begin if (u^.Info2 = 1)then begin if b=true then write('x', '+') else write('x', '-') end else begin if b=true then write('x^', u^.Info2, '+') else write('x^', u^.Info2, '-') end end;
+      if (u^.Info2 = 0) then write(u^.Info1, '+');
+      if (u^.Info2 = 1) then begin if (u^.Info1 = 1)then write ('x', '+') else begin if b=true then write (u^.Info1, 'x', '+') else write (u^.Info1, 'x', '-') end end;
+      if (u^.Info2 <> 0) and (u^.Info2 <> 1) then begin if b=true then write(u^.Info1, 'x^', u^.Info2, '+')else write(u^.Info1, 'x^', u^.Info2) end;
+      end
+    else begin if (u^.Info1 = 1) then begin if (u^.Info2 = 1) then write('x')else write('x^',u^.Info2) end else write(u^.Info1, 'x^', u^.Info2) end;
+
+    u := u^.Next;
+  end;
+end;
+
+var
+  p, rez: pComponent;
+  f: file;
+  k: char; b: boolean;
+  s,s1, n,n1, c, d: real;
+  q: set of '0'..'9';
+w:-1..1;
+label m1;
+
+begin
+  q := ['0'..'9'];
+  assign(f, 'C:\PABCWork.NET\semestr2\text1.txt');
+  reset(f);
+  p := nil;
+  s1 := -1;
+  while not eof(f) do
+  begin
+    s := 0;
+    w:=1;
+    m1: read(f, k);
+    if (k in q) then begin b := true; s := s * 10 + (ord(k) - ord('0')) end else if (k='-') then begin b:=true; w:=-1; end; 
+    if (k=',') or (k='.') then b := false;
+    case b of
+      true: if not eof(f) then goto m1;
+      false: begin s1 := s1 + 1; s:=s*w; w:=1; push(p, s, s1) end;
+    end;
+  end;
+  close(f);
+  writeln('Введите c,d');
+  readln(c);
+  readln(d);
+  s := 0;
+  s1 := 0;
+  rez := nil;
+  while (p^.Info2 > 0) do
+  begin
+    pop(p, n, n1);
+    n := n - s;
+    s := n / d;
+    s1 := n1 - 1;
+    push(rez, s, s1);
+    s := s * c;
+  end;
+  print(rez);
+end.
