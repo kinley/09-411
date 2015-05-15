@@ -1,4 +1,4 @@
-#include <iostream> //wip
+#include <iostream>
 
 struct tree
 {
@@ -88,23 +88,19 @@ tree* find_by_data (tree *tr, int value)
 	{
 		return tr;
 	}
-	else
+	if (tr->left_tree == NULL && tr->right_tree != NULL)
 	{
-		if (tr->left_tree == NULL && tr->right_tree == NULL)
-		{
-			return NULL;
-		}
-		if (tr->left_tree != NULL)
-		{
-			return find_by_data(tr->left_tree, value);
-		}
-		if (tr->right_tree != NULL)
-		{
-			return find_by_data(tr->right_tree, value);
-		}
+		return NULL;
+	}
+	if (tr->left_tree != NULL)
+	{
+		return find_by_data(tr->left_tree, value);
+	}
+	if (tr->right_tree != NULL)
+	{
+		return find_by_data(tr->right_tree, value);
 	}
 }
-
 
 int main()
 {
