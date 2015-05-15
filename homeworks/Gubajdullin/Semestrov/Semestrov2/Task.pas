@@ -23,12 +23,12 @@ end;{ unfavor }
 procedure report(subject: nametype );{печать имени subject с соответспзуюшегг характеристикой} 
 begin
   if MEMBER(subject, goodguys) then 
-    writeln(subject, ' Ч это друг') 
+    writeline(subject, true)
   else 
   if MEMBER(subject, badguys) then 
-    writeln(subject, ' Ч это враг ')
+    writeline(subject, false)
   else 
-    writeln('Ќет данных о ', subject)
+    writenope(subject)
 end;{ report }
 
 begin{ main program }

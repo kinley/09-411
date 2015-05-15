@@ -5,9 +5,8 @@ const
 
 type
   
-  nametype = array[1..LenOfName] of char;
+  nametype = array[1..LenOfName+1] of char;
   tData = char;
-  tRoad = array[1..LenOfName] of boolean;
   
   Cell = record
     //Data: tData;
