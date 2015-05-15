@@ -1,93 +1,127 @@
 unit instruments;
 interface
-  const
-    zeroValue = 0;
-  
   type
-    tValue = integer; //element in leaf
-    pNode = ^tNode; 
+    tValue = record
+              nodes: set of integer;
+              weight: integer;
+             end;
+    pNode = ^tNode;
     tLeast = record //record of the least element in subtree
               value: tValue;
               child: pNode; //pointer to the corresponding subtree
              end;
-    tNode = record //for internal nodes and leaves a record is the same
+    tNode = record //the records of internal nodes and leaves are the same
               least: tLeast; //least element in subtree
-              left, middle, right: pNode; //pointers to childrens
-              value: tValue;
+              left, middle, right: pNode; //pointers to children
+              value: tValue; //element in leaf
             end;
     tTree = record //tree record
               root: pNode;
               depth: integer;
             end;
   
+  const
+    zeroValue: tValue = (nodes: []; weight: 0);
+  
   procedure createTree(var tree: tTree);
-  //procedure destroyTree(var tree: tTree);
+  //procedure destroyTree(var tree: tTree); TODO
   
-  function initNode(l: tLeast): pNode; //initialization of node
-  function initLeaf(v: tValue): pNode; //initialization of leaf
+  function min(tree: tTree): tValue;
+  procedure insert(leaf: pNode; var tree: tTree);
   
-  function getLeast(node: tNode): tLeast;
-  
-  procedure min(tree: tTree; var m: tValue);
-
 implementation
+  uses STACK;
+  
   procedure createTree;
     var
       p: pNode;
     
   Begin
     new(p);
-    p^.least.value := zeroValue;
-    p^.least.son := nil;
-    p^.left := nil;
-    p^.middle := nil;
-    p^.right := nil;
-    p^.value := zeroValue;
+    with p^ do
+      begin
+        least.value := zeroValue;
+        least.child := nil;
+        left := nil;
+        middle := nil;
+        right := nil;
+        value := zeroValue;
+      end;
     tree.root := p;
     tree.depth := 0;
   End;
   
   {procedure destroyTree;
   Begin
-    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    TODO
   End;}
   
   
-  function initNode: pNode; //fills only a "least" field
+  function initNode(l: tLeast): pNode; //initialization of node; fills only a "least" field
     var
       p: pNode;
     
   Begin
     new(p);
-    p^.least := l;
-    p^.left := nil;
-    p^.middle := nil;
-    p^.right := nil;
-    p^.value := zeroValue;
+    with p^ do
+      begin
+        least := l;
+        left := nil;
+        middle := nil;
+        right := nil;
+        value := zeroValue;
+      end;
     result := p;
   End;
   
-  function initLeaf: pNode; //fills only a "value" field
+  function initLeaf(v: tValue): pNode; //initialization of leaf; fills only a "value" field
     var
       p: pNode;
     
   Begin
     new(p);
-    p^.least.value := zeroValue;
-    p^.least.son := nil;
-    p^.left := nil;
-    p^.middle := nil;
-    p^.right := nil;
-    p^.value := v;
+    with p^ do
+      begin
+        least.value := zeroValue;
+        least.child := nil;
+        left := nil;
+        middle := nil;
+        right := nil;
+        value := v;
+      end;
     result := p;
   End;
   
-  function getLeast: tLeast;
+  function getLeast(node: tNode): tLeast;
   Begin
     result := node.least;
   End;
   
-  procedure min; //moving the tree, going to the nodes in the subtree which are stored the least value
+  function parent(node: pNode, tree: tTree): pNode; //TODO; breadth-first search
+    var
+      p: pNode;
+      curr, next: Tstack;
+    
+  Begin
+    p := tree.root;
+    create(curr);
+    create(next);
+    push(curr, 'l');
+    push(curr, 'm');
+    push(curr, 'r');
+    with p^ do
+      while (left <> node) and (middle <> node) and (right <> node) and (value <> zeroValue) do
+        begin
+          
+        end;
+    destroy(curr);
+    destroy(next);
+    result := p;
+  End;
+  
+  procedure addSon
+  
+  function min: tValue; //moves through the tree, passing through the nodes, whose subtrees' leaf stores the smallest value
     var
       currNode: pNode;
   
@@ -97,7 +131,26 @@ implementation
       begin
         currNode := getLeast(currNode^).child;
       end;
-    m := currNode^.value;
+    result := currNode^.value;
+  End;
+  
+  procedure insert;
+    var
+      l: tLeast;
+      p: pNode;
+    
+  Begin
+    with tree do
+      if root^.left = nil then
+                            begin
+                              l.value := leaf^.value;
+                              l.child := leaf;
+                              root^.left := initNode(l);
+                              root^.left^.left := leaf;
+                            end
+                          else if root^.left^.middle = nil then root^.left^.middle := leaf
+                                                           else if root^.left^.right = nil then root^.left^.right := leaf
+                                                                                           else addSon //TODO
   End;
   
 END.
