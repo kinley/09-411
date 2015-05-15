@@ -1,8 +1,9 @@
-#include <iostream> //Wip
+#include <iostream> //wip
 
 struct tree
 {
 	int count;
+	int data;
 	std::string key;
 	tree *left_tree,*right_tree;
 };
@@ -47,11 +48,11 @@ void add_tree (tree *tr,tree *a, int w)
 	}
 }
 
-tree* find_by_key(tree *tr, std::string keyword)
+tree* find_by_key (tree *tr, std::string keyword)
 {
 	int i=1;
 	tree *temp_t = tr;
-	if (keyword == "0" )
+	if (keyword == tr->key)
 	{
 		return temp_t;
 	}	
@@ -59,7 +60,7 @@ tree* find_by_key(tree *tr, std::string keyword)
 	{
 		while (i<keyword.size())
 		{
-			if(keyword[i]=="0")
+			if (keyword[i] == '0')
 			{
 				if (temp_t->left_tree == NULL)
 				{
@@ -80,6 +81,30 @@ tree* find_by_key(tree *tr, std::string keyword)
 		return temp_t;		
 	}
 }
+
+tree* find_by_data (tree *tr, int value)
+{
+	if (tr->data == value)
+	{
+		return tr;
+	}
+	else
+	{
+		if (tr->left_tree == NULL && tr->right_tree == NULL)
+		{
+			return NULL;
+		}
+		if (tr->left_tree != NULL)
+		{
+			return find_by_data(tr->left_tree, value);
+		}
+		if (tr->right_tree != NULL)
+		{
+			return find_by_data(tr->right_tree, value);
+		}
+	}
+}
+
 
 int main()
 {
