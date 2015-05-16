@@ -1,0 +1,26 @@
+unit Convert;
+
+interface
+
+uses
+  Data;
+
+procedure readline(var legislator: nametype);
+
+implementation
+
+procedure readline(var legislator: nametype);
+var
+  i: integer;
+begin
+  i := 1;
+  while i < lengthofname do 
+  begin
+    read(legislator[i]);
+    if legislator[i]<>' ' then inc(i);
+  end;
+  readln(legislator[lengthofname]);
+  
+end;
+
+end.
