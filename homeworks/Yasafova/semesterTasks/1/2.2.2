@@ -1,0 +1,67 @@
+program insertionBeforeZ;
+
+uses
+  myList;
+
+var
+  list: tList;
+
+procedure textToList(var l: tList);
+var
+  f: text;
+  s: tValue;
+begin
+  createList(l);
+  assign(f, 'words.txt');
+  reset(f);
+  while not eof(f) do
+  begin
+    readln(f, s);
+    addLast(l, initElem(s));
+  end;
+  close(f);
+end;
+
+procedure DeleteWords(var list: tList);
+var
+  current,tmp: pPointer;
+begin
+  current:=list.pFirst;
+  while (current<>nil)and(current^.next<>nil) do 
+  begin
+   if (current^.value=current^.next^.value) then 
+   begin
+   tmp:=current^.next^.next;
+    dispose(current^.next);
+    current^.next:=tmp;
+   end;
+   current:=current^.next;
+  end;
+  
+end;
+
+procedure insertion(var l: tList);
+var
+  w: string[1];
+begin
+  reset(l);
+  while not eol(l) do
+  begin
+    w := getCurr(l);
+    if w = 'z' then
+    begin
+      prev(l);
+      addAfterCurr(l, initElem('; '));
+      next(l);
+      next(l);
+    end;
+    next(l);
+  end;
+end;
+
+begin
+  textToList(list);
+  DeleteWords(list);
+  insertion(list);
+  printList(list);
+end.
