@@ -1,112 +1,112 @@
-unit List;
+unit myList;
 
 interface
 
-const tdata_empty_value1 = 0;
-      tdata_empty_value2 = 0;
-
-type tPointer = ^tElement;
-                tData = record
-                coef: integer;
-                exp: cardinal;
-                end;
+type pPointer = ^tComponent;
      
-     tElement = record    
-                data: tData;
-                next: tPointer;
-                end;
-                
-     tList = record
-             pHead: tPointer;
-             pTail: tPointer;
-             pCurrent: tPointer;   
-             size: cardinal;
-             end;
+     tInfo = integer;
+     
+     tComponent = record
+                  info: tInfo;
+                  next: pPointer;
+                  end;
+          tList = record
+                  pHead: pPointer;
+                  pCurrent: pPointer;
+                  end;
+                  
+procedure AddElement(var list: tList; element: tInfo);
+procedure FindElement(var list: tList; element: tInfo);
+procedure DeleteElement(var list: tList; pElement: pPointer);
+procedure CleanList(var list: tList);
+procedure ShowList(list: tList);
 
-function initElement(data: tData): tPointer;
-procedure initList(var list: tList);
-function isEmpty(list: tList): boolean;
-function eofList(list: tList): boolean;
-procedure appendElement(var list: tList; pNewElement: tPointer);
-procedure resetList(var list: tList);
-procedure readFromList(var list: tList; var data: tData);
-procedure printList(var list: tList);
-procedure deleteElement(var list : Tlist);
+implementation
 
-implementation 
-
-procedure deleteElement(var list: tList);
-var p : tPointer;
+procedure AddElement(var list: tList; element: tInfo);
+var pElement: pPointer;
 begin
-  p := list.pCurrent;
-  list.pCurrent := list.pHead;
-  while (list.pCurrent^.next <> p) do list.pCurrent := list.pCurrent^.next;
-  list.pCurrent^.next := p^.next;
-  dispose(p);  
-  dec(list.size);
+new(pElement);
+pElement^.info:= element;
+pElement^.next:= nil;
+
+if list.pHead <> nil then begin
+                     list.pCurrent:= list.pHead;
+                     while list.pCurrent^.next <> nil do list.pCurrent:= list.pCurrent^.next;                     
+                     list.pCurrent^.next := pElement;
+                     end
+                     else list.pHead:= pElement;
+
+list.pCurrent:= pElement;
 end;
 
-function initElement(data: tData): tPointer;
-var p: tPointer;
+procedure FindElement(var list: tList; element: tInfo);
+var flag: boolean;
 begin
-     new(p);
-     p^.data.coef := data.coef;
-     p^.data.exp := data.exp;
-     p^.next := nil;
-     initElement := p;
+flag:= false;
+list.pCurrent:= list.pHead;
+
+while (list.pCurrent <> nil) and (not flag) do begin
+                                               if list.pCurrent^.info = element then flag:=true else list.pCurrent:= list.pCurrent^.next;
+                                               end;
 end;
 
-procedure initList(var list: tList);
-var p: tPointer;
-    data: tData;
+procedure PreviousElement(var list: tList);
+var pElement: pPointer;
 begin
-     data.coef := tdata_empty_value1;
-     data.exp := tdata_empty_value2;
-     p := initElement(data);
-     list.pHead := p;
-     list.pTail := p;
-     list.size := 0;
+pElement:= list.pCurrent;
+list.pCurrent:= list.pHead;
+while list.pCurrent^.next <> pElement do list.pCurrent:= list.pCurrent^.next;
 end;
 
-function isEmpty(list: tList): Boolean;
+procedure DeleteElement(var list: tList; pElement: pPointer);
 begin
-     isEmpty := (list.size) = 0
+if pElement = list.pHead then begin
+                              list.pHead:= pElement^.next;
+                              pElement^.next:= nil;
+                              dispose(pElement);
+                              exit;
+                              end
+
+else if pElement^.next = nil then begin
+                             list.pCurrent:= list.pHead;
+                             while (list.pCurrent^.next <> pElement) do list.pCurrent:= list.pCurrent^.next;
+                             list.pCurrent^.next:= nil;
+                             dispose(pElement);                             
+                             exit;
+                             end else begin
+                                      list.pCurrent:= list.pHead;
+                                      while (list.pCurrent^.next <> pElement) do list.pCurrent:= list.pCurrent^.next;
+                                      list.pCurrent^.next:= pElement^.next;
+                                      dispose(pElement);
+                                      end;
 end;
 
-function eofList(list: tList): Boolean;
+procedure CleanList(var list: tList);
+var pElement: pPointer;
 begin
-     eofList := (list.pCurrent = nil);
+if list.pHead <> nil then begin
+                          list.pCurrent:= list.pHead;
+                     
+                          while list.pCurrent <> nil do begin
+                                                        pElement:= list.pCurrent;
+                                                        list.pCurrent:= list.pCurrent^.next;
+                                                        dispose(pElement);
+                                                        end;
+                     
+                          list.pHead:= nil;
+                          end;
 end;
 
-procedure appendElement(var list: tList; pNewElement: tPointer);
+procedure ShowList(list: tList);
 begin
-     list.pTail^.next := pNewElement;
-     list.pTail := pNewElement;
-     inc(list.size);
+if list.pHead = nil then writeln('Список пуст.') else begin
+                                                      list.pCurrent:= list.pHead;
+                                                      while list.pCurrent <> nil do begin
+                                                                                    writeln(list.pCurrent^.info);
+                                                                                    list.pCurrent:= list.pCurrent^.next;                                                                          
+                                                                                    end;
+                                                      end;
 end;
 
-procedure resetList(var list: tList);
-begin
-     list.pCurrent := list.pHead^.next;
-end;
-
-procedure readFromList(var list: tList; var data: tData);
-begin
-     data := list.pCurrent^.data;  
-     list.pCurrent := list.pCurrent^.next;
-end;
-
-procedure printList(var list: tList);
-var pTempCurrent: tPointer;
-begin
-     pTempCurrent := list.pCurrent;
-     resetList(list);
-     while not eoflist(list) do begin
-                                write(list.pCurrent^.data.coef, '( x^', list.pCurrent^.data.exp, ' )');
-                                if not(eofList(list)) then write(' + ');
-                                list.pCurrent := list.pCurrent^.next;
-                                
-                                end;
-     list.pCurrent := pTempCurrent;
-end;
 end.
