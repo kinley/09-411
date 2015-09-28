@@ -1,7 +1,6 @@
 unit List;
 
 interface
-
 const tdata_empty_value1 = 0;
       tdata_empty_value2 = 0;
 
@@ -33,8 +32,7 @@ procedure readFromList(var list: tList; var data: tData);
 procedure printList(var list: tList);
 procedure deleteElement(var list : Tlist);
 
-implementation 
-
+implementation
 procedure deleteElement(var list: tList);
 var p : tPointer;
 begin
