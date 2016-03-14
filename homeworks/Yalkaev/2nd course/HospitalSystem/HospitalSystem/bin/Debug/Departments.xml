@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Department>
+  <Department id="1">
+    <idhosp>1</idhosp>
+    <name>Хирургия</name>
+    <manager>Романенко</manager>
+  </Department>
+  <Department id="2">
+    <idhosp>1</idhosp>
+    <name>Педиатрия</name>
+    <manager>Полина Б.</manager>
+  </Department>
+  <Department id="1">
+    <idhosp>2</idhosp>
+    <name>Венерология</name>
+    <manager>Купитман</manager>
+  </Department>
+  <Department id="2">
+    <idhosp>2</idhosp>
+    <name>Терапия</name>
+    <manager>Левин</manager>
+  </Department>
+</Department>

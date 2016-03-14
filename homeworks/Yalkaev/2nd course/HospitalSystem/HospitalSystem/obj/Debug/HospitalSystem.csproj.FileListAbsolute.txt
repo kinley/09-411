@@ -1,0 +1,9 @@
+c:\users\николай\documents\visual studio 2015\Projects\HospitalSystem\HospitalSystem\bin\Debug\HospitalSystem.exe.config
+c:\users\николай\documents\visual studio 2015\Projects\HospitalSystem\HospitalSystem\bin\Debug\HospitalSystem.exe
+c:\users\николай\documents\visual studio 2015\Projects\HospitalSystem\HospitalSystem\bin\Debug\HospitalSystem.pdb
+c:\users\николай\documents\visual studio 2015\Projects\HospitalSystem\HospitalSystem\obj\Debug\HospitalSystem.csprojResolveAssemblyReference.cache
+c:\users\николай\documents\visual studio 2015\Projects\HospitalSystem\HospitalSystem\obj\Debug\HospitalSystem.Form1.resources
+c:\users\николай\documents\visual studio 2015\Projects\HospitalSystem\HospitalSystem\obj\Debug\HospitalSystem.Properties.Resources.resources
+c:\users\николай\documents\visual studio 2015\Projects\HospitalSystem\HospitalSystem\obj\Debug\HospitalSystem.csproj.GenerateResource.Cache
+c:\users\николай\documents\visual studio 2015\Projects\HospitalSystem\HospitalSystem\obj\Debug\HospitalSystem.exe
+c:\users\николай\documents\visual studio 2015\Projects\HospitalSystem\HospitalSystem\obj\Debug\HospitalSystem.pdb

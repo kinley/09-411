@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Hospitals>
+  <Hospital id="1">
+    <name>Городская больница </name>
+    <address>Губкина 25</address>
+    <phone>8805553535</phone>
+    <head>Быков</head>
+  </Hospital>
+  <Hospital id="2">
+    <name>Student Hospital</name>
+    <address>Orenburg Tract 88</address>
+    <phone>1442321551</phone>
+    <head>Lobanov</head>
+  </Hospital>
+</Hospitals>
