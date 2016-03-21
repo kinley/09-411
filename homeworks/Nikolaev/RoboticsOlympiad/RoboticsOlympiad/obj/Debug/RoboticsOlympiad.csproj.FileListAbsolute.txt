@@ -1,0 +1,6 @@
+c:\users\picikak03\documents\visual studio 2015\Projects\RoboticsOlympiad\RoboticsOlympiad\bin\Debug\RoboticsOlympiad.exe.config
+C:\Users\Picikak03\documents\visual studio 2015\Projects\RoboticsOlympiad\RoboticsOlympiad\bin\Debug\RoboticsOlympiad.exe
+C:\Users\Picikak03\documents\visual studio 2015\Projects\RoboticsOlympiad\RoboticsOlympiad\bin\Debug\RoboticsOlympiad.pdb
+C:\Users\Picikak03\documents\visual studio 2015\Projects\RoboticsOlympiad\RoboticsOlympiad\obj\Debug\RoboticsOlympiad.csprojResolveAssemblyReference.cache
+C:\Users\Picikak03\documents\visual studio 2015\Projects\RoboticsOlympiad\RoboticsOlympiad\obj\Debug\RoboticsOlympiad.exe
+C:\Users\Picikak03\documents\visual studio 2015\Projects\RoboticsOlympiad\RoboticsOlympiad\obj\Debug\RoboticsOlympiad.pdb
